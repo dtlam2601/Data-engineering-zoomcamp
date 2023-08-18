@@ -240,6 +240,100 @@
       pg-network:
           external: true
   ```
+
+* SQL Refesher
+  * Adding the Zones table
+    ```upload-data.ipython
+    !wget https://d37ci6vzurychx.cloudfront.net/misc/taxi+_zone_lookup.csv
+    df_zones = pd.read_csv('taxi+_zone_lookup.csv')
+    df_zones.to_sql(name='zones', con=engine, if_exists='replace')
+    ```
+    
+  * Inner joins
+    ```SQL
+    SELECT
+     	tpep_pickup_datetime,
+     	tpep_dropoff_datetime,
+     	total_amount,
+     	CONCAT(zpu."Borough" , ' / ', zpu."Zone") AS "pickup_loc",
+     	CONCAT(zdo."Borough" , ' / ', zdo."Zone") AS "dropoff_loc"
+     FROM 
+     	yellow_taxi_trips t JOIN zones zpu
+     		ON t."PULocationID" = zpu."LocationID"
+     	JOIN zones zdo
+     		ON t."DOLocationID" = zdo."LocationID"
+     LIMIT 100;
+     ```
+
+  * Basic data quality checks (Check LocationID is not in the Zones table)
+    ```SQL
+    SELECT
+     tpep_pickup_datetime,
+     tpep_dropoff_datetime,
+     total_amount,
+     "PULocationID",
+     "DOLocationID"
+    FROM 
+     yellow_taxi_trips t
+    WHERE
+     "PULocationID" NOT IN (SELECT "LocationID" FROM zones)
+    LIMIT 100;
+    ```
+
+  * Left, Right and Outer joins
+    ```SQL
+    SELECT
+    	tpep_pickup_datetime,
+    	tpep_dropoff_datetime,
+    	total_amount,
+    	CONCAT(zpu."Borough" , ' / ', zpu."Zone") AS "pickup_loc",
+    	CONCAT(zdo."Borough" , ' / ', zdo."Zone") AS "dropoff_loc"
+    FROM 
+    	yellow_taxi_trips t LEFT JOIN zones zpu
+    		ON t."PULocationID" = zpu."LocationID"
+    	LEFT JOIN zones zdo
+    		ON t."DOLocationID" = zdo."LocationID"
+    LIMIT 100;
+    ```
+
+    ```FROM DATE_TRUNC('DAY', tpep_pickup_datetime),```
+  * Group by (Calculate number of trips per day)
+    ```SQL
+    SELECT
+    	CAST(tpep_pickup_datetime AS DATE) as "day",
+    	COUNT(1)
+    FROM 
+    	yellow_taxi_trips t
+    GROUP BY
+    	CAST(tpep_pickup_datetime AS DATE);
+    ```
+  * Order by
+    ```SQL
+    SELECT
+    	CAST(tpep_dropoff_datetime AS DATE) as "day",
+    	COUNT(1)
+    FROM 
+    	yellow_taxi_trips t
+    GROUP BY
+    	CAST(tpep_dropoff_datetime AS DATE)
+    ORDER BY "day" ASC;
+    ```
+
+    ```SQL
+    SELECT
+    	CAST(tpep_dropoff_datetime AS DATE) as "day",
+    	"DOLocationID",
+    	COUNT(1) AS "count",
+    	MAX(total_amount),
+    	MAX(passenger_count)
+    FROM 
+    	yellow_taxi_trips t
+    GROUP BY
+    	1, 2
+    ORDER BY 
+    	"day" ASC, 
+    	"DOLocationID" ASC;
+    ```
 ---
 [Github](https://www.github.com)
 # Convert .ipynb to .py
