@@ -82,6 +82,7 @@
 * Create docker network: ```docker network create pg-network```
 
 * Build and run container Postgres and pgAdmin on the same network 'pg-network'
+  * Postgres
   ```
   docker run -it  `
   -e POSTGRES_USER="root" `
@@ -93,7 +94,8 @@
   --name pg-database `
   postgres:13
   ```
- 
+
+  * pgAdmin
   ```
   docker run -it  `
   -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" `
@@ -104,6 +106,140 @@
   dpage/pgadmin4
   ```
 
+* Data pipeline: ingest_data.py
+  * Using argparse for pass arguments
+  * Coding
+    ```Python
+    #!/usr/bin/env python
+    # coding: utf-8
+    
+    
+    import os
+    from sqlalchemy import create_engine
+    from time import time
+    import pandas as pd
+    import argparse
+    
+    def main(params):
+        user = params.user
+        password = params.password
+        host = params.host
+        port = params.port
+        db = params.db
+        table_name = params.table_name
+        url = params.url
+        csv_name = 'output.csv'
+    
+        # download the csv
+        os.system(f"wget {url} -O {csv_name}")
+        #os.system(f"tar -xf {yellow_tripdata_*.csv.gz} -O {csv_name}")
+    
+        engine = create_engine(f'postgresql://{user}:{password}@{host}:{port}/{db}')
+        
+        engine.connect()
+    
+        df = pd.read_csv(csv_name, nrows=100)
+        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+    
+        # create table name 'yellow_taxi_data' with ddl into postgres database
+        #df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
+        
+        # read file into smaller batches (chunks)
+        df_iter = pd.read_csv(csv_name, iterator=True, chunksize=100000)
+    
+        # get schema (ddl) and into prosgres database for table named yellow_taxi_data
+        #print(pd.io.sql.get_schema(df, name=table_name, con=engine))
+    
+        while True:
+            t_start = time()
+            df = next(df_iter)
+    
+            df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+            df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+            
+            df.to_sql(name=table_name, con=engine, if_exists='append')
+            t_end = time()
+    
+            print('inserted another chunk, took %0.3f seconds' % (t_end - t_start))
+    
+    
+    
+    if __name__ == '__main__':
+    
+        parser = argparse.ArgumentParser(description='Ingest CSV data to Postgres')
+    
+        parser.add_argument('--user', help='user name for postgres')
+        parser.add_argument('--password', help='password for postgres')
+        parser.add_argument('--host', help='host for postgres')
+        parser.add_argument('--port', help='port for postgres')
+        parser.add_argument('--db', help='database name for postgres')
+        parser.add_argument('--table_name', help='name of the table where we will write the results to')
+        parser.add_argument('--url', help='url of the csv file')
+    
+        args = parser.parse_args()
+    
+        main(args)
+    ```
+
+  * Dockerfile: build image taxi_ingest for ingest_data.py
+    ```
+    FROM python:3.9.1
+    
+    RUN apt-get install wget
+    RUN pip install pandas sqlalchemy psycopg2
+    
+    WORKDIR /app
+    COPY ingest_data.py ingest_data.py
+    
+    ENTRYPOINT [ "python", "ingest_data.py" ]
+    ```
+
+  * Build and run Container ingest_data.py with Dockerfile on network=pg-network and host name connect to Postgres db=pg-database
+    ```
+    docker build -t taxt_ingest:v001 .
+
+    $URL='http://192.168.1.108:8000/yellow_tripdata_2021-01.csv'
+    docker run -it  `
+        --network=pg-network    `
+        taxt_ingest:v001 `
+        --user=root `
+        --password=root `
+        --host=pg-database `
+        --port=5432 `
+        --db=ny_taxi `
+        --table_name=yellow_taxi_trips  `
+        --url=$URL
+    ```
+* Docker-compose for Postgres and pgAdmin: docker-compose.yml\
+  ```
+  services:
+    pg-database:
+        image: postgres:13
+        ports: 
+            - "5432:5432"
+        volumes: 
+            - "./data/ny_taxi_postgres_data:/var/lib/postgresql/data"
+        environment: 
+            POSTGRES_USER=root
+            POSTGRES_PASSWORD=root
+            POSTGRES_DB=ny_taxi
+        networks:
+            - pg-network
+
+    pgadmin:
+        image: dpage/pgadmin4
+        ports:
+            - "8080:80"
+        environment: 
+            PGADMIN_DEFAULT_EMAIL=admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD=root
+        networks:
+            - pg-network
+    networks:
+      pg-network:
+          external: true
+  ```
 ---
 [Github](https://www.github.com)
 # Convert .ipynb to .py
