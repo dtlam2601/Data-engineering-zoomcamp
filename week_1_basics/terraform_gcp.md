@@ -37,4 +37,5 @@
 2. Enable these APIs for project:
    * https://console.cloud.google.com/apis/library/iam.googleapis.com
    * https://console.cloud.google.com/marketplace/product/google/iamcredentials.googleapis.com
-3. 
+
+### Create GCP Infrastructure with Terraform
