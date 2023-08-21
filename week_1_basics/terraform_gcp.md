@@ -45,6 +45,7 @@
 #### Files
 * main.tf
 * variables.tf
+* Optional: resources.tf, output.tf
 * .ttstate
 
 #### Declartions
@@ -54,6 +55,8 @@
   * a set of resource type and/or data sources that Terraform can manage
   * Terraform registry: is the main directory of publicly
 * resource
+  * blocks to define components of your infrastructure
+  * Project modules/resources: google_storage_bucket, google_bigquery_dataset, google_bigquery
 * variable & locals
 
 #### Execution Steps
