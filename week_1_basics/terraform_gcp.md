@@ -41,6 +41,28 @@
    * https://console.cloud.google.com/marketplace/product/google/iamcredentials.googleapis.com
 
 ### Create GCP Infrastructure with Terraform
+
+#### Files
+* main.tf
+* variables.tf
+* .ttstate
+
+#### Declartions
+* terraform
+  * backend: state
+* provider
+  * a set of resource type and/or data sources that Terraform can manage
+  * Terraform registry: is the main directory of publicly
+* resource
+* variable & locals
+
+#### Execution Steps
+1. Terraform init: Initialize & install
+2. Terraform plan: Matches change against to previous state
+3. Terraform apply: Apply changes to cloud
+4. Terraform destroy: Remove your stack from cloud
+
+#### Setup
 * main.tf
 ```terraform
 terraform {
@@ -93,5 +115,39 @@ resource "google_bigquery_dataset" "dataset" {
   dataset_id = var.BQ_dataset
   project = var.project
   location = var.region
+}
+```
+
+* variables.tf
+  ```terraform
+  locals {
+  data_lake_bucket = "dtc_data_lake"
+}
+
+variable "project" {
+  description = ""
+}
+
+variable "region" {
+  description = "Region for GCP resources."
+  default = "europe-west6"
+  type = string
+}
+
+# Not needed for now
+variable "bucket_name" {
+  description = "The name of the Google Cloud Storage bucket. Must be globally unique."
+  default = ""
+}
+
+variable "storage_class" {
+  description = "Storage class type for your bucket. Check official docs for more info."
+  default = "STANDARD"
+}
+
+variable "BQ_DATASET" {
+  description = "BigQuery Dataset that raw data (from GCS) will be written to"
+  type = string
+  default = "trips_data_all"
 }
 ```
