@@ -169,3 +169,7 @@ terraform apply -var="project=<your-gcp-project-id>"
 # Delete infra after your work, to avoid costs on any running services
 terraform destroy
 ```
+
+### Configuration Terraform and GCP SDK on Windows
+#### Instructions
+```set CLOUDSDK_PYTHON=~/Anaconda3/python```
