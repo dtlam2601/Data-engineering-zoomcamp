@@ -8,8 +8,9 @@
 
 
 ### Setting up the environment on cloud VM
-* Generating SSH keys: https://cloud.google.com/compute/docs/connect/create-ssh-keys
-  GCP > Metadata > Add ssh-key
+* Generating SSH keys:
+  * https://cloud.google.com/compute/docs/connect/create-ssh-keys
+  * GCP > Metadata > Add ssh-key
 * Creating a virtual machine on GCP
 * Connecting to the VM with SSH
 * Installing Anaconda
