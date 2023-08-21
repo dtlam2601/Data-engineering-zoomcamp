@@ -18,11 +18,13 @@
    * Authentication: Create keys (.json)
 4. Local setup: download Cloud SDK
    * Single user or All is OK
-5. Set Environment:
+5. Set Environment for Authentication:
    ```bash
    # Export environment
    set GOOGLE_APPLICATION_CREDENTIALS=D:\DataEngineer\zoomcamp\1_basics\terraform_gcp\gcp_keys\dtc-de-396509-833cbdf2ad0f.json
+   gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
 
+   # or by OAuth
    ## Login
    gcloud auth application-default login
    ```
@@ -39,3 +41,57 @@
    * https://console.cloud.google.com/marketplace/product/google/iamcredentials.googleapis.com
 
 ### Create GCP Infrastructure with Terraform
+* main.tf
+```terraform
+terraform {
+  required_version = ">= 1.0"
+  backend "local" {} # Can change from local to "gcs" (google) or "s3" (aws)
+  required_providers {
+    google = {
+        source = "hashicorp/google"
+    }
+  }
+}
+
+provider "google" {
+  project = var.project
+  region = var.region
+  // credentials = file(var.credentials) # use this if you do not want to set env-var GOOGLE_APPLICATION_CREDENTIALS
+}
+
+
+# Data Lake Bucket
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket
+resource "google_storage_bucket" "data-lake-bucket" {
+  name = "${local.data_lake_bucket}_${var.project}"
+  location = var.region
+
+  # Optional, but recommended settings
+  storage_class = var.storage_class
+  uniform_bucket_level_access = true
+
+  versioning {
+    enabled = true
+  }
+
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+    condition {
+      age = 30 // days
+    }
+  }
+
+  force_destroy = true
+}
+
+
+# DWH
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/bigquery_dataset
+resource "google_bigquery_dataset" "dataset" {
+  dataset_id = var.BQ_dataset
+  project = var.project
+  location = var.region
+}
+```
