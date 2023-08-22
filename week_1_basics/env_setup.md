@@ -53,11 +53,23 @@
     ```
     * View manage: htop
 
-* Installing Anaconda
+* Installing Anaconda in VM
   ```bash
   wget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh
+
+  # this as anaconda installed
+  less .bashrc
+  source .bashrc
+  # show prefix (base)
   ```
+  
+  
 * Installing Docker
+  ```bash
+  # apt-get and apt are the same thing
+  sudo apt-get update
+  sudo apt-get install docker.io
+  ```
 
 * Creating SSH config file
   ```
@@ -72,3 +84,11 @@
   cd
   ssh de-zoomcamp
   ```
+
+* Accessing the remote machine with VS Code and SSH remote
+* Installing docker-compose
+* Installing pgcli
+* Port-forwarding with VS code: connecting to pgAdmin and Jupyter from the local computer
+* Installing Terraform
+* Using sftp for putting the credentials to the remote machine
+* Shutting down and removing the instance
