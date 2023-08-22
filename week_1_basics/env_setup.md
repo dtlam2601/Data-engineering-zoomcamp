@@ -27,17 +27,27 @@
 #### Introduction
 * Project on GCP
   https://console.cloud.google.com/home/dashboard?project=dtc-de-396509
+
 * Generating SSH keys:
   * https://cloud.google.com/compute/docs/connect/create-ssh-keys
+    ```bash
+    ssh-keygen -t rsa -C dtlam2601 -b 2048
+    ```
   * GCP > Metadata > Add ssh-key
+
 * Creating a virtual machine on GCP: https://console.cloud.google.com/compute/instances?project=dtc-de-396509
-  * Compute Engine > VM instances > Enable
-  * Create with config:
+  1. Compute Engine > VM instances > Enable
+  2. Create with config:
     * Name: de-zoomcamp
+    * Region and Zone: europe-east1 and europe-east1-b
     * Boot-disk:
       * Type: Ubuntu
       * Image: Ubuntu 20.04 LTS
       * Balanced disk
       * Size: 30GB
-  
-  
+
+  * Connecting to the VM with SSH
+    ```bash
+    # ssh ~/.ssh/ssh_filename username_gcp@external_ip_vm
+    ssh ~/.ssh/id_rsa dtlam2601@34.22.154.55
+    ```
