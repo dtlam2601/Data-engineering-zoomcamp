@@ -8,9 +8,7 @@
 
 
 ### Setting up the environment on cloud VM
-* Generating SSH keys:
-  * https://cloud.google.com/compute/docs/connect/create-ssh-keys
-  * GCP > Metadata > Add ssh-key
+* Generating SSH keys
 * Creating a virtual machine on GCP
 * Connecting to the VM with SSH
 * Installing Anaconda
@@ -29,6 +27,17 @@
 #### Introduction
 * Project on GCP
   https://console.cloud.google.com/home/dashboard?project=dtc-de-396509
-* Compute Engine > VM instances > Enable
-  https://console.cloud.google.com/compute/instances?project=dtc-de-396509
+* Generating SSH keys:
+  * https://cloud.google.com/compute/docs/connect/create-ssh-keys
+  * GCP > Metadata > Add ssh-key
+* Creating a virtual machine on GCP: https://console.cloud.google.com/compute/instances?project=dtc-de-396509
+  * Compute Engine > VM instances > Enable
+  * Create with config:
+    * Name: de-zoomcamp
+    * Boot-disk:
+      * Type: Ubuntu
+      * Image: Ubuntu 20.04 LTS
+      * Balanced disk
+      * Size: 30GB
+  
   
