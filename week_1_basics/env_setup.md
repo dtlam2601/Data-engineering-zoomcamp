@@ -48,6 +48,21 @@
 
   * Connecting to the VM with SSH
     ```bash
-    # ssh ~/.ssh/ssh_filename username_gcp@external_ip_vm
+    # ssh ~/.ssh/ssh_filename username_gen_ssh_key@external_ip_vm
     ssh ~/.ssh/id_rsa dtlam2601@34.22.154.55
     ```
+    * View manage: htop
+
+* Installing Anaconda
+  ```bash
+  wget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh
+  ```
+* Installing Docker
+
+* Creating SSH config file
+  ```
+  Host de-zoomcamp
+    HostName 34.79.122.36
+    User dtlam2601
+    IdentityFile C:/Users/DTLam2601/.ssh/id_rsa
+  ```
