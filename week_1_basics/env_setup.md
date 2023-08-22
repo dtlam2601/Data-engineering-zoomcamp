@@ -61,8 +61,14 @@
 
 * Creating SSH config file
   ```
+  ## config file create in ~/.ssh/config
   Host de-zoomcamp
     HostName 34.79.122.36
     User dtlam2601
-    IdentityFile C:/Users/DTLam2601/.ssh/id_rsa
+    IdentityFile C:/Users/DTLam/.ssh/id_rsa
+  ```
+  ```bash
+  # this connect to VM
+  cd
+  ssh de-zoomcamp
   ```
