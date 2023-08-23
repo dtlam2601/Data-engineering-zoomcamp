@@ -86,6 +86,10 @@
   ```
 
 * Accessing the remote machine with VS Code and SSH remote
+  * Usage file: ~/.ssh/config
+  * VS Code: install an extension "Remote SSH" by Microsoft
+  * How to connect: Ctrl + Shift + P > Remote SSH: Connect to host.. > de-zoomcamp > Choose platform.
+
 * Installing docker-compose
 * Installing pgcli
 * Port-forwarding with VS code: connecting to pgAdmin and Jupyter from the local computer
