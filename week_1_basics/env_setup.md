@@ -70,6 +70,17 @@
   sudo apt-get update
   sudo apt-get install docker.io
   ```
+  * Establish run docker without sudo at: https://github.com/sindresorhus/guides/blob/main/docker-without-sudo.md
+    ```bash
+    # 1. Add the docker group if it doesn't already exist
+    sudo groupadd docker
+    
+    # 2. Add the connected user $USER to the docker group
+    # Optionally change the username to match your preferred user.
+    sudo gpasswd -a $USER docker
+
+    3. # IMPORTANT: Log out and log back in so that your group membership is re-evaluated.
+    ```
 
 * Creating SSH config file
   ```
@@ -91,6 +102,26 @@
   * How to connect: Ctrl + Shift + P > Remote SSH: Connect to host.. > de-zoomcamp > Choose platform.
 
 * Installing docker-compose
+  ```bash
+  mkdir bin
+  cd bin
+  wget https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64 -O docker-compose
+  ls
+  # docker-compose is a file (white text)
+  # but need to do a change mode plus x into the executable file (green text)
+  chmod +x docker-compose
+  ```
+  ```bash
+  # open to export path for ${HOME}/bin
+  nano .bashrc
+  
+  # add this line to the end of the file
+  export PATH="${HOME}/bin:${PATH}"
+  # then Ctrl + o to save, press Enter to Confirm, Ctrl + x to Exit
+
+  # logout and login
+  source .bashrc
+  ```
 * Installing pgcli
 * Port-forwarding with VS code: connecting to pgAdmin and Jupyter from the local computer
 * Installing Terraform
