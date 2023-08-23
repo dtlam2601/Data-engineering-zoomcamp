@@ -149,5 +149,30 @@
   wget https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
   unzip terraform_1.5.5_linux_amd64.zip
   ```
-* Using sftp for putting the credentials to the remote machine
+* Using sftp (Google credentials) for putting the credentials to the remote machine
+  * sftp: Secure File Transfer Protocol
+  ```bash
+  # cd to path contains files need to transfer
+  # then sftp to connect to machine, de-zoomcamp is a host
+  sftp de-zoomcamp
+  # cd to path need transfer file to.
+  # then put file_name
+  put file_name
+  ```
+  * config gcloud (VM instance)
+    ```bash
+    # Export environment
+    set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\DTLam\.gc\dtc-de-396509.json
+    # Activated service account credentials for "VM instance" to Service account GCP ([dtc-de-user@dtc-de-396509.iam.gserviceaccount.com])
+    # then you can interactive with terraform
+    gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
+    ```
+
+  * Run Terraform commands
+    ```bash
+    terraform init
+    terraform plan
+    terraform apply
+    terraform destroy
+    ```
 * Shutting down and removing the instance
