@@ -21,7 +21,7 @@
        3. Grant users access to this service account: (Optional).
    * Authentication: Create keys (.json)
      * After create service account: choose ... (vertical) Actions > Manage keys > Add key (private) .json
-     * Note: "D:\DataEngineer\zoomcamp\1_basics\terraform_gcp\gcp_keys" /or "C:\Users\DTLam\.gc"
+     * Note: "D:/DataEngineer/zoomcamp/1_basics/terraform_gcp/gcp_keys" /or "C:/Users/DTLam/.gc"
 4. Local setup: download Cloud SDK
    * Single user or All is OK
 5. Set Environment for Authentication:
