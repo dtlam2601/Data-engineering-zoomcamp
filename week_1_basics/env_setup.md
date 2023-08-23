@@ -33,11 +33,12 @@
     ```bash
     ssh-keygen -t rsa -C dtlam2601 -b 2048
     ```
-  * GCP > Metadata > Add ssh-key
+* Add ssh-key to GCP
+   * GCP > Metadata > Add ssh-key
 
 * Creating a virtual machine on GCP: https://console.cloud.google.com/compute/instances?project=dtc-de-396509
   1. Compute Engine > VM instances > Enable
-  2. Create with config:
+  2. Create VM instance with config:
     * Name: de-zoomcamp
     * Region and Zone: europe-west1 and europe-west1-b
     * Boot-disk:
@@ -91,6 +92,7 @@
     HostName 34.79.122.36
     User dtlam2601
     IdentityFile C:/Users/DTLam/.ssh/id_rsa
+  # host, external_ip, username of ssh-key, path to private ssh-key
   ```
   ```bash
   # this connect to VM
