@@ -13,15 +13,22 @@
 2. Create project: dtc-de
 3. Setup
    * Service Accounts:
+   * https://console.cloud.google.com/iam-admin/iam?project=dtc-de-396509
      * Select IAM & Admin (Add permission) > Service Accounts >
-     * Create Service Accounts > dtc-de-user > Viewer > Done.
+     * Create Service Accounts:
+       1. Service account details: dtc-de-user (name and id)
+       2. Grant this service account access to project: Viewer.
+       3. Grant users access to this service account: (Optional).
    * Authentication: Create keys (.json)
+     * After create service account: choose ... (vertical) Actions > Manage keys > Add key (private) .json
+     * Note: D:\DataEngineer\zoomcamp\1_basics\terraform_gcp\gcp_keys and C:\Users\DTLam\.gc
 4. Local setup: download Cloud SDK
    * Single user or All is OK
 5. Set Environment for Authentication:
    ```bash
    # Export environment
-   set GOOGLE_APPLICATION_CREDENTIALS=D:\DataEngineer\zoomcamp\1_basics\terraform_gcp\gcp_keys\dtc-de-396509-833cbdf2ad0f.json
+   set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\DTLam\.gc\dtc-de-396509.json
+   # Activated service account credentials for "Local" to Service account GCP, can interactive with terraform
    gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
 
    # or by OAuth
