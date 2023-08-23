@@ -39,7 +39,7 @@
   1. Compute Engine > VM instances > Enable
   2. Create with config:
     * Name: de-zoomcamp
-    * Region and Zone: europe-east1 and europe-east1-b
+    * Region and Zone: europe-west1 and europe-west1-b
     * Boot-disk:
       * Type: Ubuntu
       * Image: Ubuntu 20.04 LTS
@@ -57,6 +57,8 @@
   ```bash
   wget https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh
 
+  # run this command to install anaconda
+  bash Anaconda3-2023.07-2-Linux-x86_64.sh
   # this as anaconda installed
   less .bashrc
   source .bashrc
@@ -107,8 +109,8 @@
   cd bin
   wget https://github.com/docker/compose/releases/download/v2.20.3/docker-compose-linux-x86_64 -O docker-compose
   ls
-  # docker-compose is a file (white text)
-  # but need to do a change mode plus x into the executable file (green text)
+  # docker-compose is a file (white text), it is a executable file (green text), but system doesn't know this.
+  # to let our system know, run this command, change mode plus x 
   chmod +x docker-compose
   ```
   ```bash
@@ -119,11 +121,33 @@
   export PATH="${HOME}/bin:${PATH}"
   # then Ctrl + o to save, press Enter to Confirm, Ctrl + x to Exit
 
-  # logout and login
+  # logout and login, or refresh the change
   source .bashrc
+
+  # run docker-compose
+  cd ./data-engineering-zoomcamp/week_1_basics_n_setup/2_docker_sql
+  # -d for run in detached mode
+  docker-compose up -d
   ```
+  
 * Installing pgcli
+  ```bash
+  pip install pgcli
+  # or
+  conda install -c conda-forge pgcli
+  pip install -U mycli
+  ```
+
 * Port-forwarding with VS code: connecting to pgAdmin and Jupyter from the local computer
+  * Remote-SSH with VS code
+  * Ports > Add Port: 5432 (Postgres), 8080 (pgAdmin), 8888 (jupyter notebook upload-data)
+
 * Installing Terraform
+  ```bash
+  cd
+  cd bin
+  wget https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
+  unzip terraform_1.5.5_linux_amd64.zip
+  ```
 * Using sftp for putting the credentials to the remote machine
 * Shutting down and removing the instance
