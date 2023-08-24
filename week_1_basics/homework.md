@@ -15,8 +15,8 @@
 * [Part B: Terraform]()
 
 ## The Data School
-https://dataschool.com/how-to-teach-people-sql/sql-join-types-explained-visually/
-https://www.wikiwand.com/en/Join_(SQL)
+* [sql-join-types-explained-visually](https://dataschool.com/how-to-teach-people-sql/sql-join-types-explained-visually/)
+* [Join(SQL)](https://www.wikiwand.com/en/Join_(SQL))
 
 ## Part A: docker-sql
 ### Question 1. Knowing docker tags
