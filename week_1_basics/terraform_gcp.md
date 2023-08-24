@@ -1,3 +1,5 @@
+Next: [Setting up the Environment on Google Cloud](env_setup.md)
+
 ## Local setup
 #### Installation:
 1. Terraform client installation: https://www.terraform.io/downloads
@@ -22,12 +24,13 @@
    * Authentication: Create keys (.json)
      * After create service account: choose ... (vertical) Actions > Manage keys > Add key (private) .json
      * Note: "D:/DataEngineer/zoomcamp/1_basics/terraform_gcp/gcp_keys" /or "C:/Users/DTLam/.gc"
-4. Local setup: download Cloud SDK
-   * Single user or All is OK
+4. Local setup: download [GCP SDK](https://cloud.google.com/sdk/docs/install-sdk). Follow the instructions to install and connect to your account and project.
+   * Follow the instructions to install and connect to your account and project.
+   * Note: Single user or All is OK
 5. Set Environment for Authentication:
    ```bash
    # Export environment
-   set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\DTLam\.gc\dtc-de-396509.json
+   set GOOGLE_APPLICATION_CREDENTIALS="<path/to/authkeys>.json"
    # Activated service account credentials for "Local" to Service account GCP, can interactive with terraform
    gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
 
@@ -180,3 +183,4 @@ terraform destroy
 ### Configuration Terraform and GCP SDK on Windows
 #### Instructions
 ```set CLOUDSDK_PYTHON=~/Anaconda3/python```
+>Next: [Setting up the Environment on Google Cloud](env_setup.md)
