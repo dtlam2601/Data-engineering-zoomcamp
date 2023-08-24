@@ -2,8 +2,23 @@
 
 ### Data Lake (GCS)
 * What is a Data Lake
+  * Data Lake is a system or repository of data stored in natural/raw format.
+  * Users: Data Scientist, and Data Analysts
+  * Usecases: Stream Processing, Real-time analysis, Machine learning.
+  * Usage: store and access data as soon as possible.
+  * Gotcha of Data Lake
+    * Converting into Data Swamp
+    * No versioning
+    * Incompatiple schemas for same data without versioning
+    * No metadata associated
+    * Joins not possible
 * ELT vs. ETL
+  * ELT for large amounts of data: Data Lake. Provides Schema on Read.
+  * ETL for a small amount of data: Data Warehouse
 * Alternatives to components (S3/HDFS, Redshift, Snowflake etc.)
+  * GCP - Cloud
+  * AWS - S3
+  * AZURE - AZURE Blob
 * Video
 * Slides
 
