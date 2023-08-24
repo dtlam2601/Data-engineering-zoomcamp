@@ -2,17 +2,19 @@
 
 >Next: [Data Ingestion](2_data_ingestion.md)
 
+>Reference: [Week 1 Introduction](https://itnadigital.notion.site/Week-1-Introduction-f18de7e69eb4453594175d0b1334b2f4)
+
 ### Table of contents
 * [The Data School](#the-data-school)
-* [Part docker-sql](#part-docker-sql)
-  * [Question 1. Knowing docker tags][#Question-1.-Knowing-docker-tags]
+* [Part A: docker-sql](#part-a-docker-sql)
+  * [Question 1. Knowing docker tags][#question-1.-knowing-docker-tags]
   * [Question 2. Understanding docker first run]
   * [Prepare Postgres]
   * [Question 3. Count records]
   * [Question 4. Largest trip for each day]
   * [Question 5. The number of passengers]
   * [Question 6. Largest tip]
-* [Part B: Terraform]()
+* [Part B: Terraform](#part-b-terraform)
 
 ## The Data School
 * [sql-join-types-explained-visually](https://dataschool.com/how-to-teach-people-sql/sql-join-types-explained-visually/)
@@ -119,7 +121,14 @@ As a final note, SQL commands can be categorized into the following categories:
     * `COMMIT`, `ROLLBACK`, `SAVEPOINT`, `SET TRANSACTION`
 
 _[Back to the top](#table-of-contents)_
+
 ## Part B: Terraform
 
 
+_[Back to the top](#table-of-contents)_
 
+>[Back to Index](env_setup.md)
+
+>Next:
+
+>Reference: [Week 1 Introduction](https://itnadigital.notion.site/Week-1-Introduction-f18de7e69eb4453594175d0b1334b2f4)
