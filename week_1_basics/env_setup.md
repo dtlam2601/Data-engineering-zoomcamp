@@ -164,7 +164,9 @@
   * config gcloud (VM instance)
     ```bash
     # Export environment
+    # for window
     set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\DTLam\.gc\dtc-de-396509.json
+    # for linux export GOOGLE_APPLICATION_CREDENTIALS=/home/dtlam/.gc/dtc-de-396509.json
     # Activated service account credentials for "VM instance" to Service account GCP ([dtc-de-user@dtc-de-396509.iam.gserviceaccount.com])
     # then you can interactive with terraform
     gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
