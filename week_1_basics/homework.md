@@ -1,19 +1,21 @@
->[Back to Index](env_setup.md)
+>[Back to Setting up the Environment on Google Cloud](env_setup.md)
 
->Next: [Data Ingestion](2_data_ingestion.md)
+>Next: []()
 
->Reference: [Week 1 Introduction](https://itnadigital.notion.site/Week-1-Introduction-f18de7e69eb4453594175d0b1334b2f4)
+>Reference:
+ * [Week 1 Introduction](https://itnadigital.notion.site/Week-1-Introduction-f18de7e69eb4453594175d0b1334b2f4)
+ * [Note](https://github.com/ziritrion/dataeng-zoomcamp/blob/main/notes/1_intro.md?plain=1)
 
 ### Table of contents
 * [The Data School](#the-data-school)
 * [Part A: docker-sql](#part-a-docker-sql)
-  * [Question 1. Knowing docker tags][#question-1.-knowing-docker-tags]
-  * [Question 2. Understanding docker first run]
-  * [Prepare Postgres]
-  * [Question 3. Count records]
-  * [Question 4. Largest trip for each day]
-  * [Question 5. The number of passengers]
-  * [Question 6. Largest tip]
+  * [Question 1. Knowing docker tags](#question-1-knowing-docker-tags)
+  * [Question 2. Understanding docker first run]()
+  * [Prepare Postgres]()
+  * [Question 3. Count records]()
+  * [Question 4. Largest trip for each day]()
+  * [Question 5. The number of passengers]()
+  * [Question 6. Largest tip]()
 * [Part B: Terraform](#part-b-terraform)
 
 ## The Data School
@@ -123,7 +125,35 @@ As a final note, SQL commands can be categorized into the following categories:
 _[Back to the top](#table-of-contents)_
 
 ## Part B: Terraform
+In this homework we'll prepare the environment by creating resources in GCP with Terraform.
 
+In your VM on GCP install Terraform. Copy the files from the course repo
+[here](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp/terraform) to your VM.
+
+Modify the files as necessary to create a GCP Bucket and Big Query Dataset.
+
+* Terraform divides information into ***blocks***, which are defined within braces (`{}`), similar to Java or C++. However, unlike these languages, statements are not required to end with a semicolon `;` but use linebreaks instead.
+* By convention, arguments with single-line values in the same nesting level have their equal signs (`=`) aligned for easier reading.
+* There are 3 main blocks: `terraform`, `provider` and `resource`. There must only be a single `terraform` block but there may be multiple `provider` and `resource` blocks.
+* The `terraform` block contains settings:
+    * The `required_providers` sub-block specifies the providers required by the configuration. In this example there's only a single provider which we've called `google`.
+        * A _provider_ is a plugin that Terraform uses to create and manage resources.
+        * Each provider needs a `source` in order to install the right plugin. By default the Hashicorp repository is used, in a similar way to Docker images.
+            * `hashicorp/google` is short for `registry.terraform.io/hashicorp/google` .
+        * Optionally, a provider can have an enforced `version`. If this is not specified the latest version will be used by default, which could introduce breaking changes in some rare cases.
+    * We'll see other settings to use in this block later.
+* The `provider` block configures a specific provider. Since we only have a single provider, there's only a single `provider` block for the `google` provider.
+    * The contents of a provider block are provider-specific. The contents in this example are meant for GCP but may be different for AWS or Azure.
+    * Some of the variables seen in this example, such as `credentials` or `zone`, can be provided by other means which we'll cover later.
+* The `resource` blocks define the actual components of our infrastructure. In this example we have a single resource.
+    * `resource` blocks have 2 strings before the block: the resource ***type*** and the resource ***name***.
+#### Run Terraform commands
+    ```bash
+    terraform init
+    terraform plan
+    terraform apply
+    terraform destroy
+    ```
 
 _[Back to the top](#table-of-contents)_
 
@@ -131,4 +161,6 @@ _[Back to the top](#table-of-contents)_
 
 >Next:
 
->Reference: [Week 1 Introduction](https://itnadigital.notion.site/Week-1-Introduction-f18de7e69eb4453594175d0b1334b2f4)
+>Reference:
+ * [Week 1 Introduction](https://itnadigital.notion.site/Week-1-Introduction-f18de7e69eb4453594175d0b1334b2f4)
+ * [Note](https://github.com/ziritrion/dataeng-zoomcamp/blob/main/notes/1_intro.md?plain=1)
