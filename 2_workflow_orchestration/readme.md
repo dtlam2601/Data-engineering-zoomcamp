@@ -63,9 +63,15 @@
 ### 2. Introduction to Prefect concepts
 * What is Prefect?
 * Installing Prefect
-* Prefect flow
+* [Prefect flow](https://docs.prefect.io/2.11.5/concepts/flows/)
+  * Like a function. You can turn any function to flow by adding the @flow decorator.
+  * Take advantage:
+    - Observation of flow execution is sent to the API.
+    - Input arguments type can be validated.
+    - Retries and timeout.
 * Creating an ETL
-* Prefect task
+* [Prefect task](https://docs.prefect.io/2.11.5/concepts/tasks/)
+  * A task is a function that represent a discrete unit of work in a Prefect workflow.
 * Blocks and collections
 * Orion UI
 🎥 [Video](https://www.youtube.com/watch?v=8oLs6pzHp68&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19&ab_channel=DataTalksClub%E2%AC%9B)
@@ -88,16 +94,139 @@
   * Transform the Script into a Prefect Flow
   * Running your first Prefect Flow
   * Prefect Task: Extract Data
+    ```python
+    @task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
+    def extract_data(url):
+        if url.endswith('.csv.gz'):
+            csv_name = 'yellow_trip_data_2021.csv.gz'
+        else:
+            csv_name = 'output.csv'
+    
+        # download the csv
+        os.system(f"wget {url} -O {csv_name}")
+    
+        df = pd.read_csv(csv_name, nrows=10000)
+        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+        return df
+    ``` 
   * Prefect Task: Transform / Data Cleanup
+    ```python
+    @task(log_prints=True)
+    def transform_data(df):
+        print(f"pre: missing passenger count {df['passenger_count'].isin([0]).sum()}")
+        df = df[df['passenger_count'] != 0]
+        print(f"post: missing passenger count {df['passenger_count'].isin([0]).sum()}")
+        return df
+    ``` 
+
   * Prefect Task: Load Data into Postgres
+    ```python
+    @task(log_prints=True, retries=3)
+    def ingest_data(user, password, host, port, db, table_name, df):
+    
+        postgres_url = f"postgresql://{user}:{password}@{host}:{port}/{db}"
+        engine = create_engine(postgres_url)
+    
+        # create table name 'yellow_taxi_data' with ddl into postgres database
+        df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
+        df.to_sql(name=table_name, con=engine, if_exists='append')
+    ``` 
+
   * Prefect Flow: Parameterization & Subflows
+    ```python
+    @flow(name="Subflow", log_prints=True)
+    def log_subflow(table_name: str):
+        print(f"Logging Subflow for: {table_name}")
+    ```
   * Prefect Orion: Quick Tour through the UI
+    ```bash
+    prefect orion start
+    ```
+    - PREFECT_API_URL=http://127.0.0.1:4200/api
+    - View the API reference documentation at http://127.0.0.1:4200/docs
+    - Check out the dashboard at http://127.0.0.1:4200
   * Overview of Notifications & Task Run Concurrency
   * Overview of Prefect Blocks
   * Prefect Blocks: SQLAlchemy - Part I
-  * Prefect Collections Catalog
+  * [Prefect Collections Catalog](https://docs.prefect.io/2.7/collections/catalog/)
   * Prefect Blocks: SQLAlchemy - Part II
+    * Using Blocks with prefect_sqlalchemy
+    ```python
+    @task(log_prints=True, retries=3)
+    def ingest_data(table_name, df):
+        connection_block = SqlAlchemyConnector.load("postgres-connector")
+        with connection_block.get_connection(begin=False) as engine:
+            # create table name 'yellow_taxi_data' with ddl into postgres database
+            df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
+            df.to_sql(name=table_name, con=engine, if_exists='append')
+    ```
   * Wrapping up & Review
+    * libraries for script:
+    ```python
+    #!/usr/bin/env python
+    # coding: utf-8
+
+
+    import os
+    from sqlalchemy import create_engine
+    from time import time
+    import pandas as pd
+    import argparse
+    from prefect import flow, task
+    from prefect.tasks import task_input_hash
+    from datetime import timedelta
+    from prefect_sqlalchemy import SqlAlchemyConnector
+
+
+   @task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
+   def extract_data(url):
+       if url.endswith('.csv.gz'):
+           csv_name = 'yellow_trip_data_2021.csv.gz'
+       else:
+           csv_name = 'output.csv'
+
+    # download the csv
+    os.system(f"wget {url} -O {csv_name}")
+
+    df = pd.read_csv(csv_name, nrows=10000)
+    df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+    df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+    return df
+
+    @task(log_prints=True)
+    def transform_data(df):
+        print(f"pre: missing passenger count {df['passenger_count'].isin([0]).sum()}")
+        df = df[df['passenger_count'] != 0]
+        print(f"post: missing passenger count {df['passenger_count'].isin([0]).sum()}")
+        return df
+    
+    @task(log_prints=True, retries=3)
+    def ingest_data(table_name, df):
+        connection_block = SqlAlchemyConnector.load("postgres-connector")
+    
+        with connection_block.get_connection(begin=False) as engine:
+            # create table name 'yellow_taxi_data' with ddl into postgres database
+            df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
+            df.to_sql(name=table_name, con=engine, if_exists='append')
+    
+    @flow(name="Subflow", log_prints=True)
+    def log_subflow(table_name: str):
+        print(f"Logging Subflow for: {table_name}")
+    
+    @flow(name="Ingest Flow")
+    def main_flow(table_name: str):
+        url="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+    
+        log_subflow(table_name)
+        raw_data = extract_data(url)
+        data = transform_data(raw_data)
+        ingest_data(table_name, data)
+    
+    if __name__ == '__main__':
+        table_name="yellow_taxi_trips"
+        main_flow(table_name)
+    ```
 🎥 [Video](https://www.youtube.com/watch?v=cdtN6dhp708&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19&ab_channel=DataTalksClub%E2%AC%9B)
 
 4. From Google Cloud Storage to Big Query
