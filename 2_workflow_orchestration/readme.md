@@ -161,12 +161,11 @@
             df.head(n=0).to_sql(name=table_name, con=engine, if_exists='replace')
             df.to_sql(name=table_name, con=engine, if_exists='append')
     ```
+
   * Wrapping up & Review
-    * libraries for script:
     ```python
     #!/usr/bin/env python
     # coding: utf-8
-
 
     import os
     from sqlalchemy import create_engine
@@ -178,21 +177,20 @@
     from datetime import timedelta
     from prefect_sqlalchemy import SqlAlchemyConnector
 
+    @task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
+    def extract_data(url):
+        if url.endswith('.csv.gz'):
+            csv_name = 'yellow_trip_data_2021.csv.gz'
+        else:
+            csv_name = 'output.csv'
 
-   @task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
-   def extract_data(url):
-       if url.endswith('.csv.gz'):
-           csv_name = 'yellow_trip_data_2021.csv.gz'
-       else:
-           csv_name = 'output.csv'
-
-    # download the csv
-    os.system(f"wget {url} -O {csv_name}")
-
-    df = pd.read_csv(csv_name, nrows=10000)
-    df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-    df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
-    return df
+        # download the csv
+        os.system(f"wget {url} -O {csv_name}")
+    
+        df = pd.read_csv(csv_name, nrows=10000)
+        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+        return df
 
     @task(log_prints=True)
     def transform_data(df):
