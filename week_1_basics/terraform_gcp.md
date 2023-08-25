@@ -24,7 +24,7 @@ Next: [Setting up the Environment on Google Cloud](env_setup.md)
    * Authentication: Create keys (.json)
      * After create service account: choose ... (vertical) Actions > Manage keys > Add key (private) .json
      * Note: "D:/DataEngineer/zoomcamp/1_basics/terraform_gcp/gcp_keys" /or "C:/Users/DTLam/.gc"
-4. Local setup: download [GCP SDK](https://cloud.google.com/sdk/docs/install-sdk). Follow the instructions to install and connect to your account and project.
+4. Local setup: download [GCP SDK](https://cloud.google.com/sdk/docs/install-sdk).
    * Follow the instructions to install and connect to your account and project.
    * Note: Single user or All is OK
 5. Set Environment for Authentication:
