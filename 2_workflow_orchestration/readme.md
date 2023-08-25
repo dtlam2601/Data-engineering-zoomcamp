@@ -227,7 +227,7 @@
     ```
 🎥 [Video](https://www.youtube.com/watch?v=cdtN6dhp708&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19&ab_channel=DataTalksClub%E2%AC%9B)
 
-4. From Google Cloud Storage to Big Query
+### 4. From Google Cloud Storage to Big Query
 * Flow 2: From GCS to BigQuery
   
 🎥 Video
