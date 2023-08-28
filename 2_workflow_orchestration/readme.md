@@ -321,6 +321,71 @@
 
 ### 4. From Google Cloud Storage to Big Query
 * Flow 2: From GCS to BigQuery
+  * Recap and Scenario explanation
+    - Extract from GCS -> Transform -> Load into BigQuery
+  * Prefect Flow: GCS to BigQuery
+  * Prefect Task: Extract from GCS
+    ```python
+    # libraries
+    from pathlib import Path
+    import pandas as pd
+    import prefect
+    from prefect import flow, task
+    from prefect_gcp.cloud_storage import GcsBucket
+    from prefect_gcp import GcpCredentials
+
+    @task(log_prints=True)
+    def extract_from_gcs(color: str, year: int, month: int) -> Path:
+      gcs_path = f"data/{color}/{color}_tripdata_{year}-{month:02}.parquet"
+      gcs_block = GcsBucket.load("zoom-gcs")
+      gcs_block.download_object_to_path(from_path=gcs_path, to_path=f"../{gcs_path}")
+      return Path(f"../{gcs_path}")
+    ```
+  * Prefect Task: Data Transformation
+    ```python
+    @task(log_prints=True)
+    def transform(path: Path) -> pd.DataFrame:
+      df= pd.read_parquet(path)
+      print(f"pre: missing passenger count {df['passenger_count'].isna().sum()}")
+      df['passenger_count'].fillna(0)
+      print(f"pre: missing passenger count {df['passenger_count'].isna().sum()}")
+      return df
+    ```
+  * Prefect Task: Load into BigQuery - Part I
+  * BigQuery: Overview & Data Import from GCS
+    - Create Dataset and table in BigQuery 
+  * Prefect Task: Load into BigQuery - Part II
+    ```python
+    @task(log_prints=True)
+    def write_bq(df: pd.DataFrame) -> None:
+      """Write DataFrame to BigQuery"""
+      gcp_creds_block = GcpCredentials.load("zoom-gcp-creds")
+    
+      df.to_gbq(
+        destination_table="dezoomcamp.rides",
+        project_id="dtc-de-396509",
+        credentials=gcp_creds_block.get_credentials_from_service_account(),
+        chunksize=500_000,
+        if_exists="append"
+      )
+    ```
+  * BigQuery: Querying the Data
+  * Wrapping up & Review
+    ```python
+    @flow()
+    def etl_gcs_to_bq():
+      """Main ETL flow to upload data to BigQuery"""
+      color="yellow"
+      year=2021
+      month=1
+    
+      path = extract_from_gcs(color, year, month)
+      df = transform(path)
+      write_bq(df)
+    
+    if __name__ == "__main__":
+      etl_gcs_to_bq()
+    ```
   
 🎥 Video
 
