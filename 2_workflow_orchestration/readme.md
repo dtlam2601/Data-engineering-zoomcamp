@@ -76,8 +76,7 @@
 * Orion UI
 🎥 [Video](https://www.youtube.com/watch?v=8oLs6pzHp68&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19&ab_channel=DataTalksClub%E2%AC%9B)
 
-### 3. ETL with GCP & Prefect
-* Flow 1: Putting data to Google Cloud Storage
+### Introduction Prefect: ETL with Porstgres
   * Data: https://github.com/DataTalksClub/nyc-tlc-data/releases/
   * Scenario: using Prefect with features as observability and orchestration, schedule, run and monitor.
   * Create a Virtualenv and Install Dependencies
@@ -224,6 +223,99 @@
     if __name__ == '__main__':
         table_name="yellow_taxi_trips"
         main_flow(table_name)
+    ```
+
+### 3. ETL with GCP & Prefect
+* Flow 1: Putting data to Google Cloud Storage
+  * Setting up the environment
+    ```bash
+    # terminal 1
+    prefect orion start
+    # terminal 2
+    conda activate zoom
+    ```
+  * Scenario explanation
+    ```python
+    # libraries
+    from pathlib import Path
+    import pandas as pd
+    import prefect
+    from prefect import flow, task
+    from prefect_gcp.cloud_storage import GcsBucket
+    ```
+  * Prefect Flow: pandas DataFrame to Google Cloud Storage
+  * Prefect Task: Extract Dataset from the Web with retries
+    ```python
+    @task(log_prints=True, retries=3)
+    def fecth(dataset_url: str) -> pd.DataFrame:
+      """Read taxi data from web into pandas DataFrame"""
+    
+      df = pd.read_csv(dataset_url)
+      return df
+    ```
+  * Prefect Task: Data Cleanup
+    ```python
+    @task(log_prints=True)
+    def clean(df = pd.DataFrame) -> pd.DataFrame:
+      """Fix dtypes issues"""
+    
+      df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
+      df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+    
+      print(f"dtypes: {df.dtypes}")
+      print(f"size: {len(df)}")
+    
+      return df
+    ```
+  * Prefect Task: Write to Local Filesystem
+    ```python
+    @task(log_prints=True)
+    def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
+      """Write DataFrame out locally as parquet file"""
+    
+      path = Path(f"data/{color}/{dataset_file}.parquet")
+      df.to_parquet(path, compression="gzip")
+      return path
+    ```
+  * Prefect Task: Write to GCS - Part I
+  * [Google Cloud Storage: Overview](week_1_basics/terraform_gcp.md)
+  * Prefect Blocks: GCS Bucket
+    - Register blocks from Prefect GCP 
+    ```bash
+    prefect register block -m prefect-gcp
+    ```
+  * Prefect Blocks: GCP Credentials & Service Account
+  * Prefect Blocks: Write to GCS - Part II
+    ```python
+    @task()
+    def write_gcs(path: Path) -> None:
+      """Upload local Parquet file to GCS"""
+      gcs_block = GcsBucket.load("zoom-gcs")
+      upload_path = gcs_block.upload_from_path(from_path=path, to_path=path)
+      print(upload_path)
+      return
+    ```
+  * Wrapping up & Review
+    ```python
+    @flow
+    def etl_web_to_gcp() -> None:
+      """The main ETL function"""
+      color = "yellow"
+      year = 2021
+      month = 1
+      dataset_file = f"{color}_tripdata_{year}-{month:02}"
+      dataset_url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{color}/{dataset_file}.csv.gz"
+    
+      print("Flow etl_web_to_gcp starts running")
+      df = fecth(dataset_url)
+      df_clean = clean(df)
+      path = write_local(df, color, dataset_file)
+      write_gcs(path)
+    
+      print("Flow etl_web_to_gcp stopped running")
+    
+    if __name__ == "__main__":
+      etl_web_to_gcp()
     ```
 🎥 [Video](https://www.youtube.com/watch?v=cdtN6dhp708&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19&ab_channel=DataTalksClub%E2%AC%9B)
 
