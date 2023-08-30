@@ -86,6 +86,17 @@
     conda activate zoomcamp
     ```
     - Install Dependencies: requirements.txt
+    ```text
+    pandas==1.5.2
+    prefect==2.7.7
+    prefect-sqlalchemy==0.2.2
+    prefect-gcp[cloud_storage]==0.2.3
+    protobuf==4.21.11
+    pyarrow==10.0.1
+    pandas-gbq==0.18.1
+    psycopg2-binary==2.9.5
+    sqlalchemy==1.4.46
+    ```
     ```bash
     pip install -r requirements.txt
     ```
@@ -451,8 +462,34 @@
 
 ### 6. Schedules & Docker Storage with Infrastructure
 * Scheduling a deployment
+  - 2 ways:
+  - First (on UI): 127.0.0.1:4200/deployments
+  - Second (terminal):
+  ```bash
+  prefect deployment build ./etl_gcs_to_bq.py:etl_parent_flow -n "Pameterized ETL" --cron "0 0 * * *" -a
+  ```
 * Flow code storage
 * Running tasks in Docker
+  - docker-requirements.txt
+  ```text
+  pandas==1.5.2
+  prefect-gcp[cloud_storage]==0.2.3
+  protobuf==4.21.11
+  pyarrow==10.0.1
+  ```
+  ```Dockerfile
+  FROM prefecthq/prefect:2.7.7-python3.9
+
+  COPY docker-requirements.txt
+
+  RUN pip install -r docker-requirements.txt --trusted-host pypi.python.org --no-cache-dir
+
+  COPY flows /opt/prefect/flows
+  COPY data /opt/prefect/data
+  ```
+  ```bash
+  docker image build -t discdiver/prefect:zoom .
+  ```
 🎥 Video
 
 ### 7. Prefect Cloud and Additional Resources
