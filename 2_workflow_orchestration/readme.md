@@ -506,8 +506,16 @@
     name='docker_flow',
     infrastructure=docker_block
   )
+
+  if __name__ = "__main__":
+    docker_dep.apply()
   ```
-  
+* Prefect Profiles (Docker Container and Orion Server Integration)
+  ```bash
+  prefect profile ls
+  prefect config set PREFECT_API_URL="http://127.0.0.1:4200/api"
+  ```
+* Prefect Agent & Workflow run in a Docker Container
 🎥 Video
 
 ### 7. Prefect Cloud and Additional Resources
