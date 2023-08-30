@@ -488,8 +488,26 @@
   COPY data /opt/prefect/data
   ```
   ```bash
-  docker image build -t discdiver/prefect:zoom .
+  docker image build -t dtlam2601/prefect:zoom .
+  docker image push dtlam2601/prefect:zoom
   ```
+  - Setting on prefect blocks to run docker iamge built
+  - 127.0.0.1:4200/blocks/catalog/docker-container/: block name, image name and image_pull_policy = always
+  - Create a python docker-deploy.py in the directory with the parameterized_flow.py
+  ```python
+  from prefect.deployments import Deployment
+  from prefect.infrastructure.docker import DockerContainer
+  from parameterized_flow import etl_parent_flow
+
+  docker_block = DockerContainer.load("zoom")
+
+  docker_dep = Deployment.build_from_flow(
+    flow=etl_parent_flow,
+    name='docker_flow',
+    infrastructure=docker_block
+  )
+  ```
+  
 🎥 Video
 
 ### 7. Prefect Cloud and Additional Resources
