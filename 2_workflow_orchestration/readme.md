@@ -76,7 +76,7 @@
 * Orion UI
 🎥 [Video](https://www.youtube.com/watch?v=8oLs6pzHp68&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=19&ab_channel=DataTalksClub%E2%AC%9B)
 
-### Introduction Prefect: ETL with Porstgres
+### Introduction Prefect: ETL with Postgres
   * Data: https://github.com/DataTalksClub/nyc-tlc-data/releases/
   * Scenario: using Prefect with features as observability and orchestration, schedule, run and monitor.
   * Create a Virtualenv and Install Dependencies
