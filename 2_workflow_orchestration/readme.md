@@ -391,6 +391,41 @@
 
 ### 5. Parametrizing Flow & Deployments
 * Parametrizing the script from your flow
+  ```python
+    @flow()
+    def etl_gcs_to_bq(year: int, month: int, color: str) -> None:
+      """Main ETL flow to upload data to BigQuery"""
+      path = extract_from_gcs(color, year, month)
+      df = transform(path)
+      write_bq(df)
+  
+    @flow()
+    def etl_parent_flow(year: int = 2021, month: int = list[1,2], color: str = "yellow"):
+      for month in months:
+        etl_gcs_to_bq(year, month, color)
+  
+    if __name__ == "__main__":
+      color = "yellow"
+      month = [1,2,3]
+      year = 2021
+      etl_parent_flow(year, month, color)
+  ```
+  ```python
+  # libraries
+  ```python
+  # libraries
+  from pathlib import Path
+  import pandas as pd
+  import prefect
+  from prefect import flow, task
+  from prefect_gcp.cloud_storage import GcsBucket
+  from prefect_gcp import GcpCredentials
+  from prefect.tasks import task_input_hash
+  from datetime import timedelta
+
+  # add more cache and time expiration for cache
+  # @task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
+  # def extract_from_gcs(color: str, year: int, month: int) -> Path
 * Parameter validation with Pydantic
 * Creating a deployment locally
 * Setting up Prefect Agent
