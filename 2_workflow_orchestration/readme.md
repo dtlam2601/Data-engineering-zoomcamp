@@ -428,8 +428,24 @@
   # def extract_from_gcs(color: str, year: int, month: int) -> Path
 * Parameter validation with Pydantic
 * Creating a deployment locally
+  - [Deployment](https://docs.prefect.io/2.11.5/concepts/deployments/)
+  ```bash
+  prefect deployment build ./etl_gcs_to_bq.py:etl_parent_flow -n "Pameterized ETL"
+
+  # Note: after build, etl_parent_flow-deployment.yaml file is generated
+  # add parameters: {year: int = 2021, month: int = list[1,2], color: str = "yellow"} into etl_parent_flow-deployment.yaml file
+  prefect deployment apply etl_parent_flow-deployment.yaml
+  ```
 * Setting up Prefect Agent
+  - 127.0.0.1:4200/deployments
+  - You can add description, schedule, add parameters, or manual trigger
 * Running the flow
+  - Run the flow: press quick start
+  - 127.0.0.1:4200/work-queues: to view the flow started
+  ```bash
+  prefect agent start --work-queues "default"
+  ```
+  - 127.0.0.1:4200/notifications: on any states
 * Notifications
 🎥 Video
 
