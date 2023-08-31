@@ -484,14 +484,14 @@
 
   RUN pip install -r docker-requirements.txt --trusted-host pypi.python.org --no-cache-dir
 
-  COPY flows /opt/prefect/flows
+  COPY gcp_prefect /opt/prefect/flows
   COPY data /opt/prefect/data
   ```
   ```bash
   docker image build -t dtlam2601/prefect:zoom .
   docker image push dtlam2601/prefect:zoom
   ```
-  - Setting on prefect blocks to run docker iamge built
+  - Setting on prefect blocks to run docker image built
   - 127.0.0.1:4200/blocks/catalog/docker-container/: block name, image name and image_pull_policy = always
   - Create a python docker-deploy.py in the directory with the parameterized_flow.py
   ```python
@@ -510,6 +510,9 @@
   if __name__ = "__main__":
     docker_dep.apply()
   ```
+  ```bash
+  python docker-deploy.py
+  ```
 * Prefect Profiles (Docker Container and Orion Server Integration)
   - [Profiles and Configuration](https://docs.prefect.io/latest/concepts/settings/)
   ```bash
@@ -517,10 +520,18 @@
   prefect config set PREFECT_API_URL="http://127.0.0.1:4200/api"
   ```
 * Prefect Agent & Workflow run in a Docker Container
+  ```bash
+  prefect deployment run etl-parent-flow/docker-flow -p "months=[1,2]"
+  ```
 🎥 Video
 
 ### 7. Prefect Cloud and Additional Resources
 * Using Prefect Cloud instead of local Prefect
+  - https://docs.prefect.io/2.11.5/concepts/task-runners/
+  - https://docs.prefect.io/2.11.5/recipes/recipes/
+  - [Prefect UI & Prefect Cloud](https://docs.prefect.io/2.10.4/ui/)
+  - [Prefect Cloud](https://app.prefect.cloud/workspaces)
+  - [Prefect Community](https://discourse.prefect.io/)
 * Workspaces
 * Running flows on GCP
 🎥 Video
