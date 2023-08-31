@@ -529,14 +529,11 @@
 * Using Prefect Cloud instead of local Prefect
   - https://docs.prefect.io/2.11.5/concepts/task-runners/
   - https://docs.prefect.io/2.11.5/recipes/recipes/
-  - [Prefect UI & Prefect Cloud](https://docs.prefect.io/2.10.4/ui/)
-  - [Prefect Cloud](https://app.prefect.cloud/workspaces)
-  - [Prefect Community](https://discourse.prefect.io/)
 * Workspaces
 * Running flows on GCP
 🎥 Video
 
-* Prefect docs
-* Pefect Discourse
-* Prefect Cloud
+* [Prefect docs](https://docs.prefect.io/2.10.4/ui/)
+* [Pefect Discourse](https://discourse.prefect.io/)
+* [Prefect Cloud](https://app.prefect.cloud/workspaces)
 * Prefect Slack
