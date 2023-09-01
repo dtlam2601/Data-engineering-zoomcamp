@@ -527,13 +527,19 @@
 
 ### 7. Prefect Cloud and Additional Resources
 * Using Prefect Cloud instead of local Prefect
-  - https://docs.prefect.io/2.11.5/concepts/task-runners/
-  - https://docs.prefect.io/2.11.5/recipes/recipes/
 * Workspaces
 * Running flows on GCP
 🎥 Video
 
-* [Prefect docs](https://docs.prefect.io/2.10.4/ui/)
-* [Pefect Discourse](https://discourse.prefect.io/)
-* [Prefect Cloud](https://app.prefect.cloud/workspaces)
+* Prefect docs
+  - https://docs.prefect.io/2.11.5/concepts/task-runners/
+  - https://docs.prefect.io/2.11.5/recipes/recipes/
+* Pefect Discourse
+  - https://discourse.prefect.io/
+* Prefect Cloud
+  - https://app.prefect.cloud/workspaces
+  - https://docs.prefect.io/2.10.4/ui/
+  - GCP & Prefect Cloud guides by Anna Geller
+    - https://github.com/anna-geller
+    - https://github.com/anna-geller/prefect-dataplatform
 * Prefect Slack
