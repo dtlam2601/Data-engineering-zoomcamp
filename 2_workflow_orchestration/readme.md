@@ -470,6 +470,7 @@
   ```
 * Flow code storage
 * Running tasks in Docker
+  1. Create Image
   - docker-requirements.txt
   ```text
   pandas==1.5.2
@@ -477,6 +478,12 @@
   protobuf==4.21.11
   pyarrow==10.0.1
   ```
+  2. Push Image to Registry
+  ```bash
+  docker image build -t dtlam2601/prefect:zoom .
+  docker image push dtlam2601/prefect:zoom
+  ```
+  3. Create Docker block
   ```Dockerfile
   FROM prefecthq/prefect:2.7.7-python3.9
 
@@ -487,13 +494,10 @@
   COPY gcp_prefect /opt/prefect/flows
   COPY data /opt/prefect/data
   ```
-  ```bash
-  docker image build -t dtlam2601/prefect:zoom .
-  docker image push dtlam2601/prefect:zoom
-  ```
   - Setting on prefect blocks to run docker image built
   - 127.0.0.1:4200/blocks/catalog/docker-container/: block name, image name and image_pull_policy = always
   - Create a python docker-deploy.py in the directory with the parameterized_flow.py
+  4. Deploy with Docker block and Image registered
   ```python
   from prefect.deployments import Deployment
   from prefect.infrastructure.docker import DockerContainer
@@ -513,13 +517,13 @@
   ```bash
   python docker-deploy.py
   ```
-* Prefect Profiles (Docker Container and Orion Server Integration)
+ 5. Create Prefect Profiles (Docker Container and Orion Server Integration)
   - [Profiles and Configuration](https://docs.prefect.io/latest/concepts/settings/)
   ```bash
   prefect profile ls
   prefect config set PREFECT_API_URL="http://127.0.0.1:4200/api"
   ```
-* Prefect Agent & Workflow run in a Docker Container
+ 6. Run flow deployed: Prefect Agent & Workflow run in a Docker Container
   ```bash
   prefect deployment run etl-parent-flow/docker-flow -p "months=[1,2]"
   ```
