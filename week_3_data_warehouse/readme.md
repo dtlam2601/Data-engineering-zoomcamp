@@ -13,8 +13,8 @@
      - ML in BQ
 
     * Images: OLTP vs OLAP
-    ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/50cc3fd9-cdb7-4934-93ed-1bf7f40ef7bb)
-    ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/bb9795bf-79d3-4000-86de-15ca459a2baa)
+      - ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/50cc3fd9-cdb7-4934-93ed-1bf7f40ef7bb)
+      - ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/bb9795bf-79d3-4000-86de-15ca459a2baa)
 
     * What is data warehouse
       - Description
