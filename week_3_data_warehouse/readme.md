@@ -21,6 +21,7 @@
     ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/53c8bbf7-1a44-49bd-a48e-fa5881ba427c)
 
     * BigQuery
+      - Data Warehouse solution
       - Serverless: no servers to manage or database software.
       - Built-in features like
         - Machine learning
@@ -74,15 +75,53 @@
 ### Data Warehouse
 
 - [Data Warehouse and BigQuery](https://youtu.be/jrHljAoD6nM)
+- ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/f7caea3e-a7e4-4708-944a-04fb656c632a)
 
 ### Partitoning and clustering
 
 - [Partioning and Clustering](https://youtu.be/jrHljAoD6nM?t=726)  
-- [Partioning vs Clustering](https://youtu.be/-CqXf7vhhDs)  
+- [Partioning vs Clustering](https://youtu.be/-CqXf7vhhDs)
+- [Resources](https://cloud.google.com/bigquery/docs/partitioned-tables)
+  - BigQuery partition
+    - Daily(default): common for medium size
+    - Hourly:
+      - Huge amount of data coming
+      - Carefully about the number of partitions, bigquery limits till 4000 partitions, so need to the expire partitioning strategy.
+    - Monthly or yearly: a small amount of data, across different ranges
+   - BigQuery cluster
+     - Important: order of column
+     - Can spicify up to four clustering columns.
+     - Improve
+       - Filter queries
+       - Aggregate queries
+     - Data size < 1 GB, don't need to use partition and cluster because don't show improvement even add significant cost for metadata.
+     - Clustering columns must to be top-level, non-repeated columns, and on these types
+       - DATE
+       - BOOL
+       - GEOGRAPHY
+       - INT64
+       - NUMERIC
+       - BIGNUMERIC
+       - STRING
+       - TIMESTAMP
+       - DATETIME
+  - Clustering over paritioning
+    - The size of per partition is less than 1 GB and granulity of column is high
+    - The numbers of partitions beyond the limits on partitioned tables (4000)
+    - The frequently of modifying the majority of partitions in the table (every hour)
+  - Reclustering
+    ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/32e22d2a-f38d-488b-8513-9be7856a493c)
 
 ### Best practices
 
-- [BigQuery Best Practices](https://youtu.be/k81mLJVX08w)  
+- [BigQuery Best Practices](https://youtu.be/k81mLJVX08w)
+- Cost reduction
+  - Avoid SELECT *
+  - Price your queries before running them
+  - Use clustered or partitioned tables
+  - Use streaming inserts with caution
+  - Materialize query results in stages
+
 
 ### Internals of BigQuery
 
