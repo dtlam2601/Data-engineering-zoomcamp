@@ -547,3 +547,7 @@
     - https://github.com/anna-geller
     - https://github.com/anna-geller/prefect-dataplatform
 * Prefect Slack
+
+>[Next to Homework](homework.md)
+
+>[Next to Week 3 Data Warehouse](../week_3_data_warehouse/readme.md)
