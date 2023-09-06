@@ -125,4 +125,12 @@
 
 ### Internals of BigQuery
 
-- [Internals of Big Query](https://youtu.be/eduHi1inM4s)  
+- [Internals of Big Query](https://youtu.be/eduHi1inM4s)
+- Document links:
+  - https://cloud.google.com/bigquery/docs/how-to
+  - https://research.google/pubs/pub36632/
+  - https://panoply.io/data-warehouse-guide/bigquery-architecture/
+  - https://www.goldsborough.me/distributed-systems/2019/05/18//21-09-00-a_look_at_dremel/
+
+>[Next to BigQuery Machine Learning](big_query_ml.md)
+>[Next to Homework](homework.md)
