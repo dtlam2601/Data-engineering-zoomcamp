@@ -133,4 +133,5 @@
   - https://www.goldsborough.me/distributed-systems/2019/05/18//21-09-00-a_look_at_dremel/
 
 >[Next to BigQuery Machine Learning](big_query_ml.md)
+
 >[Next to Homework](homework.md)
