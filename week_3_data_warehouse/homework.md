@@ -36,7 +36,7 @@ How many records have both a blank (null) PUlocationID and DOlocationID in the e
 ## Question 4:
 What is the best strategy to optimize the table if query always filter by pickup_datetime and order by affiliated_base_number?
 - Cluster on pickup_datetime Cluster on affiliated_base_number
-- Partition by pickup_datetime Cluster on affiliated_base_number
+- Partition by pickup_datetime Cluster on affiliated_base_number < partition type for date type
 - Partition by pickup_datetime Partition by affiliated_base_number
 - Partition by affiliated_base_number Cluster on pickup_datetime
 
@@ -52,16 +52,16 @@ Use the BQ table you created earlier in your from clause and note the estimated 
 ## Question 6: 
 Where is the data stored in the External Table you created?
 
-- Big Query
-- GCP Bucket
-- Container Registry
-- Big Table
+- Big Query (byte process so large)
+- GCP Bucket < (uris to gc)
+- Container Registry (has to do with docker)
+- Big Table (has to do with nosql)
 
 
 ## Question 7:
 It is best practice in Big Query to always cluster your data:
 - True
-- False
+- False <
 
 
 ## (Not required) Question 8:
