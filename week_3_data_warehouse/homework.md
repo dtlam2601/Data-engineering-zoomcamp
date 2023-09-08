@@ -13,7 +13,7 @@ Data can be found here: https://github.com/DataTalksClub/nyc-tlc-data/releases/t
 What is the count for fhv vehicle records for year 2019?
 - 65,623,481
 - 43,244,696
-- 22,978,333
+- 22,978,333 <
 - 13,942,414
 
 ## Question 2:
@@ -28,7 +28,7 @@ What is the estimated amount of data that will be read when this query is execut
 
 ## Question 3:
 How many records have both a blank (null) PUlocationID and DOlocationID in the entire dataset?
-- 717,748
+- 717,748 <
 - 1,215,687
 - 5
 - 20,332
