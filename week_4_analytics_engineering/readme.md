@@ -30,6 +30,15 @@ After local installation you will have to set up the connection to PG in the `pr
 ## Content
 ### Introduction to analytics engineering
  * What is analytics engineering?
+   - Data Domain Developments
+     - Massive parallel processing (MPP) databases
+     - Data-pipeline-as-a-service
+     - SQL-first
+     - Version control systems
+     - Self service analytics
+     - Data governance
+   - Roles in a data team
+     - Data Engineer: prepare and maintain infrastructure
  * ETL vs ELT 
  * Data modeling concepts (fact and dim tables)
 
