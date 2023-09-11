@@ -119,7 +119,9 @@ After local installation you will have to set up the connection to PG in the `pr
        - Use local IDE
        - Local installation of dbt core connecting to the Postgres database
        - Running dbt models through the CLI
+ 
  :movie_camera: [Video](https://www.youtube.com/watch?v=4eCouvVOJUw&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=33)
+
 ### Starting a dbt project
 #### Alternative a: Using BigQuery + dbt cloud
  * Starting a new project with dbt init (dbt cloud and core)
@@ -138,7 +140,19 @@ After local installation you will have to set up the connection to PG in the `pr
 ### Development of dbt models
  * Anatomy of a dbt model: written code vs compiled Sources
  * Materialisations: table, view, incremental, ephemeral  
- * Seeds, sources and ref  
+ * Seeds, sources and ref
+   - Sources
+     - Data that loaded in DWH
+     - Configuration defined in the yml files
+     - Source freshness
+   - Seeds
+     - Repository under the seed folder
+     - Equivalent to the copy command
+     - Recommended for data that doesn't change frequently
+     - Runs with dbt seed -s file_name
+   - Ref
+     - Reference to the tables and views that were building the data warehouse
+     - Dependencies are built automatically
  * Jinja and Macros 
  * Packages 
  * Variables
