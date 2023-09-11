@@ -39,8 +39,51 @@ After local installation you will have to set up the connection to PG in the `pr
      - Data governance
    - Roles in a data team
      - Data Engineer: prepare and maintain infrastructure
- * ETL vs ELT 
+     - Analytics Engineer: introduce the good software engineering practices from the data engineer to the efforts of the data analysts and the data scients.
+     - Data Analyst: is going to be using the data hosted in that infrestructure to answer questions and solve the problems
+   - Tooling
+     - Data loading: pipe tool  or stich or it could be ..
+     - Data storing: cloud data warehouses like: BigQuery, Snowflake, Redshift
+     - Data modeling: dbt or Dataform
+     - Data presentation: bi tools like Google Data Studio, Looker, Mode, and Tableau.
+ * ETL vs ELT
+   - ETL
+     - Extract (sources) > Transform > Load (Data Warehouse) > Reporting
+     - Slightly more stable and compliant data analysis (because data is cleaned before load into Data Warehouse)
+     - Higher storage and compute costs
+   - ELT
+     - Extract (sources) > Load (Data Warehouse) > Transform (in Data Warehouse) > Reporting
+     - Faster and more flexible data analysis
+     - Lower cost and lower maintainance (because load into DW and transform in it)
  * Data modeling concepts (fact and dim tables)
+   - Kimball's Dimensional Modeling
+     - Objective
+       - Deliver data understandable to the business users
+       - Deliver fast query performance
+     - Approach: priorities understandability and query performance over non-redundant data (3NF)
+     - Other modelings
+       - Bill Inmon
+       - Data Vault
+   - Elements of Dimensional Modeling: Star Schema
+     - Facts Tables
+       - Measurement, metrics, or facts
+       - as business process
+       - Verbs (etc. Sales, Order, ..)
+     - Dimensions Tables
+       - Provide contexts to the facts table (business process)
+       - as Business entity
+       - Nouns (etc. Product, ..)
+   - Architecture of Dimensional Modeling
+     - Stage Area
+       - Raw data
+       - In order to process it
+     - Processing Area
+       - Takes raw data > make data models
+       - Focus efficiency
+       - Ensuring standard
+     - Presentation Area
+       - Presentation data
+       - Deliver to Business stakeholder
 
  :movie_camera: [Video](https://www.youtube.com/watch?v=uF76d5EmdtU&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=32)
 
