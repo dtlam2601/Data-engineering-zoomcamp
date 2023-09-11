@@ -42,10 +42,10 @@ After local installation you will have to set up the connection to PG in the `pr
      - Analytics Engineer: introduce the good software engineering practices from the data engineer to the efforts of the data analysts and the data scients.
      - Data Analyst: is going to be using the data hosted in that infrestructure to answer questions and solve the problems
    - Tooling
-     - Data loading: pipe tool  or stich or it could be ..
+     - Data loading: pipe tool  or stich or it could be: Prefect, Airflow
      - Data storing: cloud data warehouses like: BigQuery, Snowflake, Redshift
      - Data modeling: dbt or Dataform
-     - Data presentation: bi tools like Google Data Studio, Looker, Mode, and Tableau.
+     - Data presentation: bi tools like Google Data Studio, Looker, Mode, and Tableau
  * ETL vs ELT
    - ETL
      - Extract (sources) > Transform > Load (Data Warehouse) > Reporting
@@ -55,7 +55,7 @@ After local installation you will have to set up the connection to PG in the `pr
      - Extract (sources) > Load (Data Warehouse) > Transform (in Data Warehouse) > Reporting
      - Faster and more flexible data analysis
      - Lower cost and lower maintainance (because load into DW and transform in it)
- * Data modeling concepts (fact and dim tables)
+ * Data modeling concepts (fact and dim tables: Star Schema)
    - Kimball's Dimensional Modeling
      - Objective
        - Deliver data understandable to the business users
@@ -64,7 +64,7 @@ After local installation you will have to set up the connection to PG in the `pr
      - Other modelings
        - Bill Inmon
        - Data Vault
-   - Elements of Dimensional Modeling: Star Schema
+   - Elements of Dimensional Modeling
      - Facts Tables
        - Measurement, metrics, or facts
        - as business process
@@ -88,8 +88,37 @@ After local installation you will have to set up the connection to PG in the `pr
  :movie_camera: [Video](https://www.youtube.com/watch?v=uF76d5EmdtU&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=32)
 
 ### What is dbt? 
- * Intro to dbt 
-
+ * Intro to dbt
+   ```text
+   dbt is a transformation tool by use the good software practice like modularity, portability, CI/CD, and documentation
+   - from defining a deployment workflow > develop a model
+   - test and document
+   - deployment phase: using Version control and CI/CD
+   ```
+ * How does dbt work?
+   - Raw data (in DW) > model data (persist in DW)
+   - How
+     - Writing a .sql file
+     - Select statement
+     - dbt compile and run it, ddl and dml are generating, dbt push these file into DW, and then we have table or view in DW
+ * How to use dbt?
+   - dbt Core: free and open sources, for data transformation
+     - builds and runs project (.sql or .yml files)
+     - includes SQL compilation logic, imagine macros (functions), database adapters (for change db)
+     - CLI interface for run dbt
+   - dbt Cloud: web application, manages dbt project
+     - includes web-baseds ide to develop run and test dbt project,
+     - and schuduler (jobs orchestration)
+     - Login and alerting
+     - host document (integrated documentation)
+     - Free for individuals (one developer seat)
+   - How are we going to be use dbt?
+     - BigQuery
+       - Use cloud IDE
+     - Postgres
+       - Use local IDE
+       - Local installation of dbt core connecting to the Postgres database
+       - Running dbt models through the CLI
  :movie_camera: [Video](https://www.youtube.com/watch?v=4eCouvVOJUw&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=33)
 ### Starting a dbt project
 #### Alternative a: Using BigQuery + dbt cloud
