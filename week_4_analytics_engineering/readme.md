@@ -188,8 +188,44 @@ After local installation you will have to set up the connection to PG in the `pr
        select *
        from {{ source("staging", "green_tripdata") }}
        ```
- * Jinja and Macros 
- * Packages 
+ * Jinja and Macros
+   - In macros folder
+     ```sql
+     {#
+         This macro returns the description of the payment type
+     #}
+      
+     {% macro get_payment_type_description(payment_type) -%}
+      
+         case {{ payment_type }}
+              when 1 then 'Credit card'
+              when 2 then 'Cash'
+              when 3 then 'No charge'
+              when 4 then 'Dispute'
+              when 5 then 'Unknown'
+              when 6 then 'Voided trip'
+         end
+   
+   {%- endmacro %}
+   ```
+ - stg_green_tripdata.sql
+   ```sql
+   select *
+       cast(payment_type as integer) as payment_type,
+       {{ get_payment_type_description('payment_type')}} as payment_type_description,
+       ..
+   from {{ source("staging", "green_tripdata") }}
+   limit 100
+   ```
+ * Packages
+   - Create packages.yml in directory project
+     ```yml
+     packages:
+       - package: dbt-labs/dbt_utils
+         version: 0.8.0
+     ```
+   - A dbt_packages folder is appeared
+   - Runs with (install packages): dbt deps
  * Variables
 
  :movie_camera: [Video](https://www.youtube.com/watch?v=UVI30Vxzd6c&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=36)
