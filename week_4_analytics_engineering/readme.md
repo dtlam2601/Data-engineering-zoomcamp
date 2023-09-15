@@ -139,6 +139,9 @@ After local installation you will have to set up the connection to PG in the `pr
  :movie_camera: [Video](https://www.youtube.com/watch?v=1HmL63e-vRs&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=35)
 ### Development of dbt models
  * Anatomy of a dbt model: written code vs compiled Sources
+   - Written codes a dbt model in .sql file
+   - Run .sql file with file_name > compiled code (this compiled code "ddl, dml" runs in the data warehouse)
+   - Runs with (without .sql extension): dbt run --select file_name
  * Materialisations: table, view, incremental, ephemeral  
  * Seeds, sources and ref
    - Sources
@@ -146,13 +149,45 @@ After local installation you will have to set up the connection to PG in the `pr
      - Configuration defined in the yml files
      - Source freshness
    - Seeds
-     - Repository under the seed folder
+     - CSV files stores under the seed folder
      - Equivalent to the copy command
      - Recommended for data that doesn't change frequently
-     - Runs with dbt seed -s file_name
+     - Runs with: dbt seed -s file_name
    - Ref
      - Reference to the tables and views that were building the data warehouse
      - Dependencies are built automatically
+     - tripdata.sql ref both stg_green_tripdata, and stg_yellow_tripdata
+       ```sql
+       -- dbt model
+       with green_data as (
+          select *
+          from {{ ref('stg_green_tripdata') }}
+       )
+
+       -- compiled code
+       with green_data as (
+          select *
+          from "project_id"."dataset_id"."stg_green_tripdata"
+       )
+       ```
+     - schema.yml
+       ```yml
+       version: 2
+
+       sources:
+         - name: staging
+           database: dtc-de-396509
+           schema: dbt_ny_taxi
+      
+           tables:
+             - name: green_tripdata
+             - name: yellow_tripdata
+       ```
+     - stg_green_tripdata.sql
+       ```sql
+       select *
+       from {{ source("staging", "green_tripdata") }}
+       ```
  * Jinja and Macros 
  * Packages 
  * Variables
