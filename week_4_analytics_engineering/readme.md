@@ -330,6 +330,8 @@ After local installation you will have to set up the connection to PG in the `pr
        - dbt build (everything includes models and seeds)
        - dbt build --select fact_trips (only fact_trips)
        - dbt build --select +fact_trips (everything that fact_trips need)
+ ![image](https://github.com/dtlam2601/Data-engineering-zoomcamp/assets/12412633/260873dc-dbfc-4f4d-9453-39072b1abfb2)
+ 
  :movie_camera: [Video](https://www.youtube.com/watch?v=UVI30Vxzd6c&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=36)
 
 _Note: This video is shown entirely on dbt cloud IDE but the same steps can be followed locally on the IDE of your choice_
