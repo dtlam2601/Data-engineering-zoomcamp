@@ -152,7 +152,7 @@ After local installation you will have to set up the connection to PG in the `pr
      - CSV files stores under the seed folder
      - Equivalent to the copy command
      - Recommended for data that doesn't change frequently
-     - Runs with: dbt seed -s file_name
+     - Runs with: dbt seed -s file_name or dbt seed --full-refresh
    - Ref
      - Reference to the tables and views that were building the data warehouse
      - Dependencies are built automatically
@@ -223,10 +223,113 @@ After local installation you will have to set up the connection to PG in the `pr
        - package: dbt-labs/dbt_utils
          version: 0.8.0
      ```
-   - A dbt_packages folder is appeared
+   - dbt_utils is installed under the dbt_packages folder
    - Runs with (install packages): dbt deps
+   - Usage: stg_green_tripdata.sql
+     ```sql
+     select 
+     -- identifiers
+       {{ dbt_utils.surrogate_key(['vendorid', 'lpep_pickup_datetime']) }} as tripid,
+       ..
+     from {{ source("staging", "green_tripdata") }}
+     limit 100
+     ```
  * Variables
-
+   - Varibles can be defined in two ways
+     - In the dbt_project.yml
+       ```yml
+       vars:
+         payment_type_values: [1, 2, 3, 4, 5, 6]
+       ```
+     - On the command line
+   - Usage: {{ var('...') }}
+ * Dim and Fact tables
+   - models/core/dim_zones.sql:
+     - From seeds/taxi_zone_lookup.csv
+     - Runs with dbt seed -s seed_file_name or dbt seed --full-refresh
+     - dbt_project.yml
+       ```yml
+       seeds:
+          taxi_rides_ny:
+             taxi_zone_lookup:
+                +column_types:
+                   locationid: numeric
+         ```
+     - dim_zones.sql
+       ```sql
+       {{ config(materialized="table") }}
+       select
+           locationid,
+           borough,
+           zone,
+           replace(service_zone,'Boro','Green') as service_zone
+       from {{ ref('taxi_zone_lookup') }}
+       ```
+   - models/core/fact_trips.sql:
+     - Runs with dbt seed -s seed_file_name or dbt seed --full-refresh
+     - fact_trips.sql
+       ```sql
+       {{ config(materialized="table") }}
+         
+       with green_data as (
+          select *
+          from {{ ref('stg_green_tripdata') }} 
+       ),
+         
+       yellow_data as (
+          select *
+          from {{ ref('stg_yellow_tripdata') }} 
+       ),
+         
+       trip_unioned as (
+          select * from green_data
+          union
+          select * from yellow_data
+       ),
+         
+       dim_zones as (
+           select * from {{ ref('dim_zones') }}
+           where borough != 'Unknown'
+       )
+       select 
+           trips_unioned.tripid,
+           trips_unioned.vendorid,
+           trips_unioned.service_type,
+           trips_unioned.ratecodeid,
+           trips_unioned.pickup_locationid,
+           pickup_zone.borough as pickup_borough,
+           pickup_zone.zone as pickup_zone,
+           trips_unioned.dropoff_locationid,
+           dropoff_zone.borough as dropoff_borough,
+           dropoff_zone.zone as dropoff_zone,
+           trips_unioned.pickup_datetime,
+           trips_unioned.dropoff_datetime,
+           trips_unioned.store_and_fwd_flag,
+           trips_unioned.passenger_count,
+           trips_unioned.trip_distance,
+           trips_unioned.trip_type,
+           trips_unioned.fare_amount,
+           trips_unioned.extra,
+           trips_unioned.mta_tax,
+           trips_unioned.tip_amount,
+           trips_unioned.tolls_amount,
+           trips_unioned.ehail_fee,
+           trips_unioned.improvement_surcharge,
+           trips_unioned.total_amount,
+           trips_unioned.payment_type,
+           trips_unioned.payment_type_description,
+           trips_unioned.congestion_surcharge
+       from trips_unioned
+       inner join dim_zones as pickup_zone
+       on trips_unioned.pickup_locationid = pickup_zone.locationid
+       inner join dim_zones as dropoff_zone
+       on trip_unioned.dropoff_locationid = dropoff_zone.locationid
+       ```
+     - Runs with:
+       - dbt run (only model)
+       - dbt build (everything includes models and seeds)
+       - dbt build --select fact_trips (only fact_trips)
+       - dbt build --select +fact_trips (everything that fact_trips need)
  :movie_camera: [Video](https://www.youtube.com/watch?v=UVI30Vxzd6c&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=36)
 
 _Note: This video is shown entirely on dbt cloud IDE but the same steps can be followed locally on the IDE of your choice_
