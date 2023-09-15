@@ -205,9 +205,8 @@ After local installation you will have to set up the connection to PG in the `pr
               when 5 then 'Unknown'
               when 6 then 'Voided trip'
          end
-   
-   {%- endmacro %}
-   ```
+     {%- endmacro %}
+     ```
  - stg_green_tripdata.sql
    ```sql
    select *
