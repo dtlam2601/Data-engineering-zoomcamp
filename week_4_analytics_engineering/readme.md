@@ -337,8 +337,19 @@ After local installation you will have to set up the connection to PG in the `pr
 _Note: This video is shown entirely on dbt cloud IDE but the same steps can be followed locally on the IDE of your choice_
 
 ### Testing and documenting dbt models
- * Tests  
- * Documentation 
+ * Tests
+   - Tests defined on a column in the .yml files
+   - Basics tests to check if the column values are:
+      - Unique
+      - Notnull
+      - Accepted values
+      - Relationship (A foreign key to another table)
+   - Custom tests as queries
+ * Documentation
+   - Documentation about project is generated and genders as a website
+   - The documentation about:
+     - Project
+     - Data warehouse (information_schema)
 
  :movie_camera: [Video](https://www.youtube.com/watch?v=UishFmq1hLM&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=37)
 
