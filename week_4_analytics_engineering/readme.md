@@ -39,8 +39,8 @@ After local installation you will have to set up the connection to PG in the `pr
      - Data governance
    - Roles in a data team
      - Data Engineer: prepare and maintain infrastructure
-     - Analytics Engineer: introduce the good software engineering practices from the data engineer to the efforts of the data analysts and the data scients.
-     - Data Analyst: is going to be using the data hosted in that infrestructure to answer questions and solve the problems
+     - Analytics Engineer: introduce the good software engineering practices from the data engineer to the efforts of the data analysts and the data scientist.
+     - Data Analyst: is going to be using the data hosted in that infrastructure to answer questions and solve the problems
    - Tooling
      - Data loading: pipe tool  or stich or it could be: Prefect, Airflow
      - Data storing: cloud data warehouses like: BigQuery, Snowflake, Redshift
@@ -357,8 +357,24 @@ _Note: This video is shown entirely on dbt cloud IDE but the same steps can be f
 
 ### Deploying a dbt project
 #### Alternative a: Using BigQuery + dbt cloud
- * Deployment: development environment vs production 
+ * Deployment: development environment vs production
+   - Deployment is a process of running the models we created in our development environment in a production environment
+   - A developement - deployment workflow will be something like:
+     - Develop in an user branch
+     - Merge to the main branch
+     - Run the new models in the production environment using the main branch
+     - Schedule the models
  * dbt cloud: scheduler, sources and hosted documentation
+   - Can create jobs to run in production
+   - Job can be triggered manully or on schedule
+   - Each job will keep a log during runs over time
+   - Each command/ each run will have the log
+   - A job could also generate documentaion
+ * Continuous Integration (CI)
+   - CI is a practice of the process merge branches into a central repository, after which automated builds and tests are run.
+   - The goal is reduce bugs to the production code, and maintain a more stable project.
+   - dbt Cloud enable CI on pull requests
+   - Enabled via webhooks from GitHub or GitLab
 
  :movie_camera: [Video](https://www.youtube.com/watch?v=rjf6yZNGX8I&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb&index=38)
   
