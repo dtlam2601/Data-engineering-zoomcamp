@@ -272,12 +272,14 @@ After local installation you will have to set up the connection to PG in the `pr
        {{ config(materialized="table") }}
          
        with green_data as (
-          select *
+          select *,
+             'green' as service_type
           from {{ ref('stg_green_tripdata') }} 
        ),
          
        yellow_data as (
-          select *
+          select *,
+             'yellow' as service_type
           from {{ ref('stg_yellow_tripdata') }} 
        ),
          
@@ -407,7 +409,56 @@ _Note: This video is shown entirely on dbt cloud IDE but the same steps can be f
 
 To learn how to use PipeRider together with dbt for detecting changes in model and data, sign up for a workshop [here](https://www.eventbrite.com/e/maximizing-confidence-in-your-data-model-changes-with-dbt-and-piperider-tickets-535584366257)
 * https://www.atlassian.com/git/tutorials/making-a-pull-request
+* PipeRider
+  - [Improved 'code review for data projects' in dbt](github.com/infuseai/piperider)
+  - Open-source CLI tool
+    - Data profiler, profile report, profile comparison, ..
+    - Integration with dbt
+    - Data assertions
+  - PipeRider Cloud (Beta)
+    - Upload and view reports
+    - Compare reports online
+    - Share reports
+    - Currently free to try out: cloud.piperider.io
+* PipeRider details
+  - Data Profiler
+    - Data exploration - understand data
+    - Data quality analysis
+    - Discover hidden data (outliers, weird values)
+    - Suitable for large datasets
+    - Easy to digest and share profile report (without needing to first build dashboard)
+  - PipeRider + dbt
+    - PipeRider automatically detects connection settings for dbt projects
+    - Available connectors/ supported data sources:
+      - BigQuery
+      - DuckDB
+      - Postgres   - CSV
+      - Redshift   - Parquet
+      - Snowflake  - SQLite (default)
+  - Using PipeRider in your data project (use-cases)
+    - Developing and testing data models locally
+      - Engineers creating and modifying the data models locally
+    - Deploying model changes
+      - Reviewing changes submitted by pull request (PR) to existing project
+      - Taps into the version controlled nature of dbt projects
+      - Automated as part of CI process
 
+- Basic (local) workflow
+  1. Create branch
+  2. Install PipeRider
+  3. Initialize PipeRider
+  4. dbt build
+  5. run PipeRider (initial report)
+  6. Update data models
+  7. dbt build
+  8. Run PipeRider (second report)
+  9. Compare reports
+  10. Pull request with comparison summary
+
+- [Project repo to folk for practice](https://github.com/infuseai/taxi_rides_ny_duckdb)
+  - dbt-core
+  - dbt Plugins
+  - Data warehouse / local DB (NYC Taxi data)
 [More details](../cohorts/2023/workshops/piperider.md)
 
 
