@@ -454,6 +454,34 @@ To learn how to use PipeRider together with dbt for detecting changes in model a
   8. Run PipeRider (second report)
   9. Compare reports
   10. Pull request with comparison summary
+      ```bash
+      git add .
+      # for first config
+      git config user.email "email"
+      git config user.name "name"
+
+      git push origin branch_name
+      # then copy the link to create pull request
+      ```
+
+- Transfer files from/to Linux Virtual Machine
+  ```bash
+  # Transfer files to VM
+  scp -i ~/.ssh/my-ssh-key D:/DataEngineer/zoomcamp/week_4_analytics_engineering/piperider_report dtlam2601@104.199.52.231:~
+
+  # Transfer files from VM to local
+  scp -i ~/.ssh/my-ssh-key dtlam2601@104.199.52.231:/home/dtlam2601/piperider/dbt-repo/.piperider/outputs/dev-20230921105817/index.html D:/DataEngineer/zoomcamp/week_4_analytics_engineering/piperider_report
+
+  # Transfer folder from VM to local
+  gcloud compute scp --recurse example-instance:~/vm-directory ~/local-folder
+  gcloud compute scp --recurse dtlam2601@de-zoomcamp:~/home/dtlam2601/piperider/dbt-repo/.piperider/outputs/latest/* "D:/DataEngineer/zoomcamp/week_4_analytics_engineering/piperider_report" --zone=europe-west1-b
+  ```
+* Document:
+  - https://docs.piperider.io/get-started/run/metrics
+  - https://docs.getdbt.com/docs/build/metricflow-cli
+  - https://docs.getdbt.com/docs/build/cumulative
+  - https://hub.getdbt.com/dbt-labs/metrics/latest/
+  
 
 - [Project repo to folk for practice](https://github.com/infuseai/taxi_rides_ny_duckdb)
   - dbt-core
