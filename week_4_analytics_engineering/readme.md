@@ -503,14 +503,27 @@ To learn how to use PipeRider together with dbt for detecting changes in model a
     dbt build
     mf validate-configs
     mf query --metrics metric_name --group-by metric_time__unit_of_granularity
+    -- or
+    mf query --metrics avg_trip_distance --group-by metric_time__month
+    --start-time '2019-01-01' --end-time '2020-12-31'
+    --order -metric_time__month
+    --csv trip_distance_month.csv
     ```
   
 * Document:
+  * https://docs.getdbt.com/docs/build/metricflow-cli#list-dimension-values
+  * https://docs.getdbt.com/docs/build/measures
+  * https://docs.getdbt.com/docs/build/dimensions
+  * https://docs.getdbt.com/docs/build/sl-getting-started
+  * https://github.com/dbt-labs/jaffle-sl-template/tree/main
+
+  - https://docs.getdbt.com/docs/dbt-cloud-apis/sl-api-overview
+  - https://docs.getdbt.com/docs/dbt-cloud-apis/sl-jdbc#querying-the-api-for-metric-metadata
+    
   - https://docs.piperider.io/get-started/run/metrics
   - https://docs.getdbt.com/docs/build/metricflow-cli
   - https://docs.getdbt.com/docs/build/cumulative
   - https://hub.getdbt.com/dbt-labs/metrics/latest/
-  - https://github.com/dbt-labs/jaffle-sl-template/tree/main
   
 
 - [Project repo to folk for practice](https://github.com/infuseai/taxi_rides_ny_duckdb)
