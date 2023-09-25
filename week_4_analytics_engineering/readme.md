@@ -476,6 +476,35 @@ To learn how to use PipeRider together with dbt for detecting changes in model a
   gcloud compute scp --recurse example-instance:~/vm-directory ~/local-folder
   gcloud compute scp --recurse dtlam2601@de-zoomcamp:~/home/dtlam2601/piperider/dbt-repo/.piperider/outputs/latest/* "D:/DataEngineer/zoomcamp/week_4_analytics_engineering/piperider_report" --zone=europe-west1-b
   ```
+
+* Using MetricFlow
+  * Install Metricflow
+    * Install metricflow, et al within a virtual environment:
+      ```bash
+      python -m venv .env
+      source .env/bin/activate
+      pip install "dbt-metricflow[<YOUR_DBT_ADAPTER_NAME>]"
+      dbt --version
+      mf --version
+      ```
+  * Test the connection
+    * Update the profile within dbt_project.yml to refer to one of your pre-existing profile
+      ```bash
+      dbt debug
+      ```
+  * Load data
+    ```bash
+    dbt deps
+    dbt seed
+    ```
+
+  * Run your dbt project, and query metrics
+    ```bash
+    dbt build
+    mf validate-configs
+    mf query --metrics metric_name --group-by metric_time__unit_of_granularity
+    ```
+  
 * Document:
   - https://docs.piperider.io/get-started/run/metrics
   - https://docs.getdbt.com/docs/build/metricflow-cli
