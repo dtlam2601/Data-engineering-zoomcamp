@@ -508,6 +508,7 @@ To learn how to use PipeRider together with dbt for detecting changes in model a
     --start-time '2019-01-01' --end-time '2020-12-31'
     --order -metric_time__month
     --csv trip_distance_month.csv
+    --explain
     ```
   
 * Document:
