@@ -504,10 +504,16 @@ To learn how to use PipeRider together with dbt for detecting changes in model a
     mf validate-configs
     mf query --metrics metric_name --group-by metric_time__unit_of_granularity
     -- or
-    mf query --metrics avg_trip_distance --group-by metric_time__month
-    --start-time '2019-01-01' --end-time '2020-12-31'
-    --order -metric_time__month
-    --csv trip_distance_month.csv
+    mf query --metrics avg_trip_distance --group-by metric_time__month \
+    --start-time '2019-01-01' --end-time '2020-12-31' \
+    --order -metric_time__month \
+    --csv trip_distance_month.csv \
+    --explain
+    
+    mf query --metrics avg_trip_distance --group-by metric_time__quarter \
+    --start-time '2019-01-01' --end-time '2020-12-31' \
+    --order -metric_time__quarter \
+    --csv csv/trip_distance_quarter.csv \
     --explain
     ```
   
