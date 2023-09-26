@@ -531,7 +531,10 @@ To learn how to use PipeRider together with dbt for detecting changes in model a
   - https://docs.getdbt.com/docs/build/metricflow-cli
   - https://docs.getdbt.com/docs/build/cumulative
   - https://hub.getdbt.com/dbt-labs/metrics/latest/
-  
+
+* Transfer files Local - VM
+  - https://cloud.google.com/compute/docs/instances/transfer-files
+  - Tool: WinSCP
 
 - [Project repo to folk for practice](https://github.com/infuseai/taxi_rides_ny_duckdb)
   - dbt-core
