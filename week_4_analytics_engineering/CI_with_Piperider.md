@@ -24,6 +24,11 @@
 # GitHub workflows with dbt and bigquery
   - https://docs.github.com/en/actions/using-workflows/about-workflows
 
+# Add environment variables
+  - https://medium.com/inthepipeline/how-to-run-dbt-with-bigquery-in-github-actions-97ccb1761f4b
+  - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dotenv
+    - [direnv](https://github.com/direnv/direnv)
+    - [zsh-autoenv](https://github.com/Tarrasch/zsh-autoenv)
 
 # Links:
   - [Repo](https://github.com/InfuseAI/taxi_rides_ny_duckdb)
