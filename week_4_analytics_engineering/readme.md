@@ -540,7 +540,8 @@ To learn how to use PipeRider together with dbt for detecting changes in model a
   - dbt-core
   - dbt Plugins
   - Data warehouse / local DB (NYC Taxi data)
-[More details](../cohorts/2023/workshops/piperider.md)
+
+[More details]([../cohorts/2023/workshops/piperider.md](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2023/workshops/piperider.md))
 
 
 ## Useful links
