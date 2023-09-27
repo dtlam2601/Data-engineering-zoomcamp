@@ -29,6 +29,7 @@
   - https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/dotenv
     - [direnv](https://github.com/direnv/direnv)
     - [zsh-autoenv](https://github.com/Tarrasch/zsh-autoenv)
+  - https://www.freecodecamp.org/news/how-to-set-an-environment-variable-in-linux/
 
 # Links:
   - [Repo](https://github.com/InfuseAI/taxi_rides_ny_duckdb)
