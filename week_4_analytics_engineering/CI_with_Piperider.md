@@ -77,7 +77,8 @@ You will need to run PipeRider and check the report
 * 5.95/75.43/-63.88/67.3K/81.5M
 * 2.95/35.43/-23.88/167.3K/181.5M
 
-
+## More for Homework
+https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2023/week_4_analytics_engineering/homework.md?plain=1
 
 
 ## Solution
