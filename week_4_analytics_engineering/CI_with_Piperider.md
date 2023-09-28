@@ -30,6 +30,7 @@
     - [direnv](https://github.com/direnv/direnv)
     - [zsh-autoenv](https://github.com/Tarrasch/zsh-autoenv)
   - https://www.freecodecamp.org/news/how-to-set-an-environment-variable-in-linux/
+  - https://askubuntu.com/questions/4667/where-to-declare-environment-variables
 
 ## Homework
   - [More details](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2023/workshops/piperider.md)
