@@ -157,6 +157,7 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
 
 * :movie_camera: 5.3.4 [SQL with Spark](https://www.youtube.com/watch?v=uAlp2VuZZPY&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+#### 5.3.1 First Look at Spark/PySpark
 
 ### 5.4 Spark Internals
 
