@@ -33,20 +33,116 @@
   - Delay
 
 #### 5.1.2 Introduction to Spark
-
+* Introduction: an open-source unified analytics engine and multi-languages for large-scale data processing (data engineering, data science, and machine learning on single-node machine or clusters.
+* Data processing engine: Data Lake > Spark (Cluster: multi-machines) > Data Lake (DWH)
+* High-level APIs: multi-languages such as PySpark, ..
+* Spark for Batch and Streaming jobs
+  - Batch jobs
+  - Streaming
+* When to use Spark?
+  - DL (S3/GCS in Parquet format) > Spark > DL
+  - Note: you also can express batch job as SQL such as Hive, Presto/Athena, BigQuery
+* Workflow for Machine Learning
+  - Workflow
+  ```mermaid
+  flowchart LR
+    RawData --> Lake --> SQLAthena --> Spark --> PythonTrainML
+    Spark --> SparkApplyML
+    PythonTrainML --> Model
+    Model --> SparkApplyML
+    SparkApplyML --> DataLake
+  ```
+  * Note: Almost pre-processing is executed in express batch job (SQL)
 ### 5.2 Installation
 
-Follow [these intructions](setup/) to install Spark:
+Follow [these intructions](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/) to install Spark:
 
-* [Windows](setup/windows.md)
-* [Linux](setup/linux.md)
-* [MacOS](setup/macos.md)
+* [Windows](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/windows.md)
+* [Linux](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/linux.md)
+* [MacOS](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/macos.md)
 
-And follow [this](setup/pyspark.md) to run PySpark in Jupyter
+And follow [this](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_5_batch_processing/setup/pyspark.md) to run PySpark in Jupyter
 
 * :movie_camera: 5.2.1 [(Optional) Installing Spark (Linux)](https://youtu.be/hqUbB9c8sKg?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+* Installing Java
+  - [Link](https://jdk.java.net/archive/)
+  ```bash
+  cd
+  mkdir spark
+  cd spark
+  wget path
+  tar xfzv filename
+  export JAVA_HOME="${HOME}/spark/filename"
+  export PATH="${JAVA_HOME}/bin:${PATH}"
+  ```
+* Installing Spark
+  - [Link](https://spark.apache.org/downloads.html)
+  ```bash
+  wget path
+  tar xfzv filename
+  export SPARK_HOME="${HOME}/spark/filename"
+  export PATH="${SPARK_HOME}/bin:${PATH}"
+  ```
+* .bashrc: add export lines to the end of the file
+  ```bash
+  nano .bashrc
+  source .bashrc
+  logout
 
+  which java
+  which pyspark
+  ```
+* Start jupyter
+  ```bash
+  mkdir notebooks
+  cd notebooks
+  jupyter notebook
+  ```
+* Setup PySpark
+  ```bash
+  export PYTHONPATH="${SPARK_HOME}/python/:$PYTHONPATH"
+  export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9-src.zip:$PYTHONPATH"
+
+  ls ${SPARK_HOME}/python/lib/
+  export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.*-src.zip:$PYTHONPATH"
+  ```
+  ```jupyter notebook
+  !wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
+
+  import pyspark
+  pyspark.__version__
+
+  from pyspark.sql import SparkSession
+  from pyspark.context import SparkContext
+
+  # connect to local master
+  # coordinating jobs of a spark cluster
+  # [] to specify the amount of CPUs to use
+  spark = SparkSession.builder \
+      .master("local[*]") \
+      .appName('test') \
+      .getOrCreate()
+  
+  sc = spark.sparkContext
+  sc.setLogLevel('WARN')
+  # sc.setLogLevel('info')
+  
+  df = spark.read \
+      .option("header", "true") \
+      .csv('taxi+_zone_lookup.csv')
+
+  df.show()
+
+  df.write.parquet('zones')
+  
+  !head taxi+_zone_lookup.csv
+
+  !ls -lh
+  ```
+* Open port and Spark UI
+  - http://localhost:8888/
+  - http://localhost:4040/jobs/
 ### 5.3 Spark SQL and DataFrames
 
 * :movie_camera: 5.3.1 [First Look at Spark/PySpark](https://youtu.be/r_Sf6fCB40c?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb) 
