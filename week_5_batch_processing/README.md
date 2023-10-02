@@ -5,6 +5,34 @@
 * :movie_camera: 5.1.1 [Introduction to Batch Processing](https://youtu.be/dcHe5Fl3MF8?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 * :movie_camera: 5.1.2 [Introduction to Spark](https://youtu.be/FhaqbEOuQ8U?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+#### 5.1.1 Introduction to Batch Processing
+* Processing data
+  - Batch (80%)
+  - Streaming (20%)
+* The data is executed by job and then stored in a database
+* Batch jobs
+  - Weekly
+  - Daily
+  - Hourly
+  - 3 times per hour
+  - Every 5 minutes
+* Technologies
+  - Python Scripts > "Kubernetes, AWS Batch, Bytes Jobs"
+  - SQL
+  - Spark
+  - Flink
+* Workflow: estimate and get the essentially runtime in every step, & total times, delay time (retry), <br/>
+    other process time such as metrics, .. (so minimum is daily is okay)
+  - Lake CSV > Python > SQL(DBT) > Spark > Python
+  - (Scale) For bigger file: bigger machine (Python), bigger cluster or add more machine (Spark)
+* Advantages of Batch
+  - Easy to manage
+  - Retry
+  - Scale
+* Disadvantage
+  - Delay
+
+#### 5.1.2 Introduction to Spark
 
 ### 5.2 Installation
 
