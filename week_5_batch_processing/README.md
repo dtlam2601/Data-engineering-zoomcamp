@@ -65,6 +65,7 @@ And follow [this](https://github.com/DataTalksClub/data-engineering-zoomcamp/blo
 
 * :movie_camera: 5.2.1 [(Optional) Installing Spark (Linux)](https://youtu.be/hqUbB9c8sKg?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+#### 5.2.1 Installing Spark on Linux
 * Installing Java
   - [Link](https://jdk.java.net/archive/)
   ```bash
@@ -143,6 +144,7 @@ And follow [this](https://github.com/DataTalksClub/data-engineering-zoomcamp/blo
 * Open port and Spark UI
   - http://localhost:8888/
   - http://localhost:4040/jobs/
+
 ### 5.3 Spark SQL and DataFrames
 
 * :movie_camera: 5.3.1 [First Look at Spark/PySpark](https://youtu.be/r_Sf6fCB40c?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb) 
