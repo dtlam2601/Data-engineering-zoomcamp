@@ -158,6 +158,45 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
 * :movie_camera: 5.3.4 [SQL with Spark](https://www.youtube.com/watch?v=uAlp2VuZZPY&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
 #### 5.3.1 First Look at Spark/PySpark
+* Reading CSV files
+  - Spark dataframe read csv file
+  ```jupyter notebook
+  # get schema
+  df.schema
+
+  from pyspark.sql import types
+  # note: the boolean indicates that columm value can be nullable
+  schema = types.StructType([
+    types.StructField('hvfhs_license_num', types.StringType(), True), 
+    types.StructField('dispatching_base_num', types.StringType(), True), 
+    types.StructField('pickup_datetime', types.TimestampType(), True), 
+    types.StructField('dropoff_datetime', types.TimestampType(), True), 
+    types.StructField('PULocationID', types.IntegerType(), True), 
+    types.StructField('DOLocationID', types.IntegerType(), True), 
+    types.StructField('SR_Flag', types.StringType(), True)
+  ])
+
+  # read file again with schema
+  df = spark.read \
+    .format("csv") \
+    .schema(schema) \
+    .option("compression", "gzip") \
+    .option("header", "true") \
+    .load('fhvhv_tripdata_2021-01.csv.gz')
+  ```
+* Partitions
+  ```jupyter notebook
+  # DataLake (file1, file2, ..) --> Cluster pull using executors (executor1, executor2, ..)
+  # and because one data file can be pull by one executor at the same time
+  # so partition large file into many small files to can maximum optimization
+  df.repartition(24)
+  ```
+* Saving data to Parquet for local experiments
+  ```jupyter notebook
+  df.write.parquet('fhvhv/2021/01/')
+  ```
+* Spark master UI
+  - localhost:4040/jobs
 
 ### 5.4 Spark Internals
 
