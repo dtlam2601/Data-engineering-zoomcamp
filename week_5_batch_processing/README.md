@@ -215,11 +215,18 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
   func_stuff_udf = F.udf(def_func, returnType=types.StringType())
   ```
 
+#### 5.3.3 Preparing Yellow and Greeen Taxi Data
+
+
 ### 5.4 Spark Internals
 
 * :movie_camera: 5.4.1 [Anatomy of a Spark Cluster](https://youtu.be/68CipcZt7ZA&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 * :movie_camera: 5.4.2 [GroupBy in Spark](https://youtu.be/9qrDsY_2COo&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 * :movie_camera: 5.4.3 [Joins in Spark](https://youtu.be/lu7TrqAWuH4&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
+
+#### 5.4.1 Anatomy of a Spark Cluster
+#### 5.4.2 GroupBy in Spark
+#### 5.4.3 Joins in Spark
 
 ### 5.5 (Optional) Resilient Distributed Datasets
 
