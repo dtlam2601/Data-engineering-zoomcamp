@@ -198,6 +198,10 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
 * Spark master UI
   - localhost:4040/jobs
 
+#### 5.3.2 Spark DataFrames
+* Actions vs transformations
+* Functions and UDFs
+
 ### 5.4 Spark Internals
 
 * :movie_camera: 5.4.1 [Anatomy of a Spark Cluster](https://youtu.be/68CipcZt7ZA&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
