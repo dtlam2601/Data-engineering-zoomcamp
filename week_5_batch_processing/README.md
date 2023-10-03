@@ -200,7 +200,20 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
 
 #### 5.3.2 Spark DataFrames
 * Actions vs transformations
+  - Transformations - lazy (not executed immediately)
+    - Selecting columns
+    - Filtering
+    - Joins
+    - Group by
+  - Actions: this evaluated to see the result -- eager (executed imediately)
+    - Show, take, head
+    - Write
 * Functions and UDFs
+  ```jupyter notebook
+  from pyspark.sql import types
+  from pyspark.sql import functions as F
+  func_stuff_udf = F.udf(def_func, returnType=types.StringType())
+  ```
 
 ### 5.4 Spark Internals
 
