@@ -216,6 +216,14 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
   ```
 
 #### 5.3.3 Preparing Yellow and Greeen Taxi Data
+* /home/dtlam2601/de-zoomcamp/week_5_batch_processing/code/download_data.sh
+  ```bash
+  # change mode to executable
+  chmod +x download_data.sh
+  ./download_data.sh
+  ./download_data.sh "yellow" 2021
+  ```
+* /home/dtlam2601/de-zoomcamp/week_5_batch_processing/code/5_taxi_schema
 
 
 ### 5.4 Spark Internals
