@@ -225,6 +225,14 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
   ```
 * /home/dtlam2601/de-zoomcamp/week_5_batch_processing/code/5_taxi_schema
 
+#### 5.3.4 SQL in Spark
+* Read from green and yellow taxi parquet files
+* Union both df_green_sel and df_yellow_sel (selected with common_columns) into df_trips_data with common_columns
+  - common_columns = set(df_green.columns) & set(df_yellow.columns)
+  - for loop join common columns
+* Register sdf as table view: df_trips_data.createOrReplaceTempView('trips_data')
+* Execute query sql: spark.sql("""SELECT * FROM trips_data""")
+* Write results to parquet: 'data/report/revenue'
 
 ### 5.4 Spark Internals
 
