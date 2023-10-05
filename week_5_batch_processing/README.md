@@ -276,6 +276,16 @@ Two stages: GroupBy and Reshuffling
 * :movie_camera: 5.5.1 [Operations on Spark RDDs](https://youtu.be/Bdu-xIrF3OM&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 * :movie_camera: 5.5.2 [Spark RDD mapPartition](https://youtu.be/k3uB2K99roI&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+#### 5.5.1 Resilient Distributed Datasets: map and reduce
+* What is RDD and how is it related to dataframes
+  - Partitions: each executor executes each partition
+  - DataFrame: has schema
+  - RDDs: collections of objects
+* From DataFrame to RDD
+* Operations on RDDs: map, filter, reduceByKey
+* From RDD to DataFrame
+
+#### 5.5.2 Spark RDD mapPartition
 
 ### 5.6 Running Spark in the Cloud
 
