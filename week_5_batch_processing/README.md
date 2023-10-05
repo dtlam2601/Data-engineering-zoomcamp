@@ -241,8 +241,29 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
 * :movie_camera: 5.4.3 [Joins in Spark](https://youtu.be/lu7TrqAWuH4&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
 #### 5.4.1 Anatomy of a Spark Cluster
+* Spark Driver, Master and Executors
+  * Driver in machine: has package contains spark code (source code)
+  * Master and Executors in Cluster:
+    - The package is submited to master
+    - Master send source code to the executors
+    - Each executor pull data from packet file partition from the dataframe
+      - Previously popular: Hadoop/HDFS
+      - Now popular: S3/GCS (Cluster and Cloud Storage are in the same data center, so pull or also save the results back to the cloud storage is very fast)
+  ```txt
+  Driver submit a job --> master --> operator in an airflow --> coordinates everything, and executors are the machines that are doing actual computations,
+  and spark keeps track of which machine are healthy and if some machine unhealthy, it reassigns the work,
+  and we keep the data in cloud storage, we read from the cloud storage and writes the results back to the cloud storage.
+  ```
+  
 #### 5.4.2 GroupBy in Spark
+* How GroupBy works internally
+* Shuffling
+  
 #### 5.4.3 Joins in Spark
+* Joining two large tables
+* Merge sort join
+* Joining one large and one small table
+* Broadcasting
 
 ### 5.5 (Optional) Resilient Distributed Datasets
 
