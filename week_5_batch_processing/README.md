@@ -264,8 +264,11 @@ Two stages: GroupBy and Reshuffling
   
 #### 5.4.3 Joins in Spark
 * Joining two large tables
+  - On the same key
 * Merge sort join
 * Joining one large and one small table
+  - On the same key
+  - Executors has a copy from small table "?"
 * Broadcasting
 
 ### 5.5 (Optional) Resilient Distributed Datasets
