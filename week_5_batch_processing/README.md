@@ -268,8 +268,8 @@ Two stages: GroupBy and Reshuffling
 * Merge sort join
 * Joining one large and one small table
   - On the same key
-  - Executors has a copy from small table "?"
 * Broadcasting
+  - Broadcast small table to all the executors
 
 ### 5.5 (Optional) Resilient Distributed Datasets
 
