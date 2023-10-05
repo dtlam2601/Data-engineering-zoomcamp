@@ -256,8 +256,11 @@ Script to prepare the Dataset [download_data.sh](code/download_data.sh)
   ```
   
 #### 5.4.2 GroupBy in Spark
+Two stages: GroupBy and Reshuffling
 * How GroupBy works internally
+  - Executor filter group each partition --> Sub-results
 * Shuffling
+  - Sub-results are reshuffling by the same key and combine into one
   
 #### 5.4.3 Joins in Spark
 * Joining two large tables
