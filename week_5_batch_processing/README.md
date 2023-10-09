@@ -282,8 +282,17 @@ Two stages: GroupBy and Reshuffling
   - DataFrame: has schema
   - RDDs: collections of objects
 * From DataFrame to RDD
+  ```jupyter
+  rdd = df.select(..).rdd
+  ```
 * Operations on RDDs: map, filter, reduceByKey
+  - WHERE vs .filter(): by row
+  - GROUP BY vs .map()
+  - Reduce By Key: left value and right value
 * From RDD to DataFrame
+  ```jupyter
+  df_results = rdd.select().map().filter().map().toDF(results_schema)
+  ```
 
 #### 5.5.2 Spark RDD mapPartition
 
