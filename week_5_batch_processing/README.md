@@ -368,7 +368,7 @@ Two stages: GroupBy and Reshuffling
         -- \
       		--input_green=gs://dtc_data_lake_dtc-de-396509/pq/green/2020/*/ \
       		--input_yellow=gs://dtc_data_lake_dtc-de-396509/pq/yellow/2020/*/ \
-		--output=trips_data_all.reports-2020/
+		--output=trips_data_all.reports-2020
     ```
 
 
