@@ -303,6 +303,74 @@ Two stages: GroupBy and Reshuffling
 * :movie_camera: 5.6.3 [Setting up a Dataproc Cluster](https://youtu.be/osAiAYahvh8&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 * :movie_camera: 5.6.4 [Connecting Spark to Big Query](https://youtu.be/HIm2BOj8C0Q&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
 
+#### 5.6.1 Connecting to Google Cloud Storage
+* Updating data to GCS
+* Connecting Spark jobs to GCS
+
+#### 5.6.2 Creating a Local Spark Cluster
+* Creating the cluster
+* Turning the notebook into the script
+* Using spark-submit for submiting spark jobs
+
+#### 5.6.3 Setting up a Dataproc Cluster
+* [Dataproc Cluster](https://console.cloud.google.com/dataproc/clusters)
+* Creating a cluster
+  * On console.cloud.google.com > search dataprodc > Enable Dataproc Cluster
+  * Create Cluster on Compute Engine
+    * Set up cluster
+      - Name the cluster and select the zone and region of the project connected with selected project
+      - Select Cluster type: Single Node
+      - Select components Jupyter Notebook and Docker
+    * Configure nodes (optional)
+    * Customize cluster (optional)
+    * Manage security (optional)
+* Running a Spark job with Dataproc
+  - Copy python file to DataLake
+  ```bash
+  gsutil cp 10_cluster.py --output=gs://dtc_data_lake_dtc-de-396509/report-2021/
+  ```
+  - Run
+    - Create a Cluster job
+    - Select type job: pyspark
+    - Select main file --output=gs://dtc_data_lake_dtc-de-396509/report-2021/
+    - Add arguments
+      - --input_green=gs://dtc_data_lake_dtc-de-396509/pq/green/2021/*/  
+      - --input_yellow=gs://dtc_data_lake_dtc-de-396509/pq/yellow/2021/*/
+      - --output=gs://dtc_data_lake_dtc-de-396509/report-2021/
+* Submitting the job with the cloud SDK
+  - Add Dataproc Administrator to IAM on IAM & Admin
+  - [Dataproc Submit job gcloud](https://cloud.google.com/dataproc/docs/guides/submit-job#dataproc-submit-job-gcloud)
+  ```bash
+  gcloud dataproc jobs submit pyspark \
+    --cluster=de-zoomcamp-cluster \
+    --region=europe-west1 \
+	gs://dtc_data_lake_dtc-de-396509/code/10_cluster.py \
+    -- \
+		--input_green=gs://dtc_data_lake_dtc-de-396509/pq/green/2020/*/ \
+		--input_yellow=gs://dtc_data_lake_dtc-de-396509/pq/yellow/2020/*/ \
+		--output=gs://dtc_data_lake_dtc-de-396509/report-2020/
+  ```
+
+#### 5.6.4 Connecting Spark to Big Query
+* Writing the spark results to Big Query
+  - [Use the BigQuery connector with Spark](https://cloud.google.com/dataproc/docs/tutorials/bigquery-connector-spark-example#pyspark)
+  - Upload script to Google cloud storage
+    ```bash
+    gsutil cp 10_cluster.py gs://dtc_data_lake_dtc-de-396509/code/10_cluster.py
+    ```
+  - Run script
+    ```bash
+    gcloud dataproc jobs submit pyspark \
+        --cluster=de-zoomcamp-cluster \
+        --region=europe-west1 \
+      	gs://dtc_data_lake_dtc-de-396509/code/10_cluster.py \
+      	--jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar \
+        -- \
+      		--input_green=gs://dtc_data_lake_dtc-de-396509/pq/green/2020/*/ \
+      		--input_yellow=gs://dtc_data_lake_dtc-de-396509/pq/yellow/2020/*/ \
+      		--output=gs://dtc_data_lake_dtc-de-396509/report-2020/
+    ```
+
 
 ### Homework
 
