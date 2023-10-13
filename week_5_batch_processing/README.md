@@ -375,7 +375,7 @@ Two stages: GroupBy and Reshuffling
 ### Homework
 
 
-* [Homework](https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2023/week_5_batch_processing/homework.md)
+* [Homework](./homework.md)
 
 
 ## Community notes
