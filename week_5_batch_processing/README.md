@@ -103,10 +103,10 @@ And follow [this](https://github.com/DataTalksClub/data-engineering-zoomcamp/blo
 * Setup PySpark
   ```bash
   export PYTHONPATH="${SPARK_HOME}/python/:$PYTHONPATH"
-  export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9-src.zip:$PYTHONPATH"
+  export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.7-src.zip:$PYTHONPATH"
 
   ls ${SPARK_HOME}/python/lib/
-  export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.*-src.zip:$PYTHONPATH"
+  export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.7-src.zip:$PYTHONPATH"
   ```
   ```jupyter notebook
   !wget https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv
