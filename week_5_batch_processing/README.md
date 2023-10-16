@@ -45,7 +45,7 @@
 * Workflow for Machine Learning
   - Workflow
   ```mermaid
-  flowchart LR
+  flowchart TD
     RawData --> Lake --> SQLAthena --> Spark --> PythonTrainML
     Spark --> SparkApplyML
     PythonTrainML --> Model
