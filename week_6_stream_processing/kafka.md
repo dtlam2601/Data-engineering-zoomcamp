@@ -1,6 +1,8 @@
 #### Example
 - https://blog.adnansiddiqi.me/getting-started-with-apache-kafka-in-python/
 - https://github.com/kadnan/Calories-Alert-Kafka/tree/master
+- https://supergloo.com/kafka-tutorials/python-kafka-in-two-minutes/
+- https://docs.oracle.com/en-us/iaas/Content/Streaming/Tasks/streaming-kafka-python-client-quickstart.htm
 
 ```
 wget https://archive.apache.org/dist/kafka/3.5.1/kafka_2.13-3.5.1.tgz
