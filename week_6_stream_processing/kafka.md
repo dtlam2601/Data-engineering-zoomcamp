@@ -1,4 +1,6 @@
-#### Example: https://blog.adnansiddiqi.me/getting-started-with-apache-kafka-in-python/
+#### Example
+- https://blog.adnansiddiqi.me/getting-started-with-apache-kafka-in-python/
+- https://github.com/kadnan/Calories-Alert-Kafka/tree/master
 
 ```
 wget https://archive.apache.org/dist/kafka/3.5.1/kafka_2.13-3.5.1.tgz
