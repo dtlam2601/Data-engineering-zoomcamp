@@ -1,3 +1,5 @@
+* Example: https://blog.adnansiddiqi.me/getting-started-with-apache-kafka-in-python/
+
 ```
 wget https://archive.apache.org/dist/kafka/3.5.1/kafka_2.13-3.5.1.tgz
 tar -xzf kafka_2.13-3.5.1.tgz
