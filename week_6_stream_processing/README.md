@@ -1,5 +1,10 @@
 # Week 6: Stream Processing
 
+## Learn Kafka
+* https://developer.confluent.io/learn-kafka/data-pipelines/intro/
+* https://developer.confluent.io/learn-kafka/kafka-connect/intro/
+* https://developer.confluent.io/learn-kafka/ksqldb/intro/
+
 ## Code structure
 * [Java examples](java)
 * [Python examples](python)
