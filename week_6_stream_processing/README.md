@@ -7,6 +7,10 @@
 
 * https://datacadamia.com/dit/kafka/kafka
 
+## Install Confluent Kafka
+* https://medium.com/nerd-for-tech/steps-to-setup-kafka-cluster-on-local-and-docker-ae84324cde86
+* https://docs.confluent.io/platform/current/platform-quickstart.html#step-1-download-and-start-cp
+
 ## Code structure
 * [Java examples](java)
 * [Python examples](python)
