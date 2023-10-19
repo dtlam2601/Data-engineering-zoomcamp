@@ -5,6 +5,8 @@
 * https://developer.confluent.io/learn-kafka/kafka-connect/intro/
 * https://developer.confluent.io/learn-kafka/ksqldb/intro/
 
+* https://datacadamia.com/dit/kafka/kafka
+
 ## Code structure
 * [Java examples](java)
 * [Python examples](python)
