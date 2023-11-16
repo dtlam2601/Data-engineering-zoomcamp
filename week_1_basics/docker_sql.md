@@ -1,3 +1,12 @@
+## Why should we care about docker?
+- Local experiments
+- Integration tests (CI/CD)
+- Reproducibility
+- Running pipelines on the cloud (AWS Batch, Kubernetes jobs)
+- Spark
+- Serverless (AWS Lambda, Google functions)
+- search: github actions docker
+
 ## Introduction to Docker
 * Run by command line:
 * Run by Dockerfile:
